@@ -14,7 +14,7 @@ class HeaderComponent extends Component {
             <div>
                 <header>
                     <nav className="navbar navbar-dark bg-primary">
-                    <div><a href="/vecinos" className="navbar-brand">NEMA App</a></div>
+                    <div><a href="/anuncios" className="navbar-brand">NEMA App</a></div>
                     </nav>
                 </header>
             </div>

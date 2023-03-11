@@ -3,9 +3,9 @@ import './App.css';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import HeaderComponent from './components/HeaderComponent';
 import FooterComponent from './components/FooterComponent';
-import CrearVecinoComponent from "./components/CrearVecinoComponent";
-import ListarVecinoComponent from "./components/ListarVecinoComponent";
-import VerVecinoComponent from "./components/VerVecinoComponent";
+import ListAdComponent from "./components/ListAdComponent";
+import CreateAdComponent from "./components/CreateAdComponent";
+import ShowAdComponent from "./components/ShowAdComponent";
 
 function App() {
   return (
@@ -14,10 +14,10 @@ function App() {
               <HeaderComponent />
                 <div className="container">
                     <Switch> 
-                          <Route path = "/" exact component = {ListarVecinoComponent}></Route>
-                          <Route path = "/vecinos" component = {ListarVecinoComponent}></Route>
-                          <Route path = "/add-vecino/:id" component = {CrearVecinoComponent}></Route>
-                          <Route path = "/view-vecino/:id" component = {VerVecinoComponent}></Route>
+                          <Route path = "/" exact component = {ListAdComponent}></Route>
+                          <Route path = "/anuncios" component = {ListAdComponent}></Route>
+                          <Route path = "/add-ad/:id" component = {CreateAdComponent}></Route>
+                          <Route path = "/show-ad/:id" component = {ShowAdComponent}></Route>
                     </Switch>
                 </div>
               <FooterComponent />
