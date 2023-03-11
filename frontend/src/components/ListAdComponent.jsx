@@ -10,6 +10,7 @@ class ListAdComponent extends Component {
         }
         this.addAd = this.addAd.bind(this);
         this.editAd = this.editAd.bind(this);
+        this.getOne = this.getOne.bind(this);
         this.deleteAd = this.deleteAd.bind(this);
     }
 
@@ -19,7 +20,7 @@ class ListAdComponent extends Component {
         });
     }
     getOne(id){
-        this.props.history.push(`/${id}`);
+        this.props.history.push(`/show-ad/${id}`);
     }
     editAd(id){
         this.props.history.push(`/add-ad/${id}`);
@@ -54,7 +55,6 @@ class ListAdComponent extends Component {
                                     <th> ID del anuncio</th>
                                     <th> Contenido del anuncio</th>
                                     <th> Fecha del anuncio</th>
-                                    <th> Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>

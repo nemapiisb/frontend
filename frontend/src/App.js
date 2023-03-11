@@ -17,6 +17,7 @@ function App() {
                           <Route path = "/" exact component = {ListAdComponent}></Route>
                           <Route path = "/anuncios" component = {ListAdComponent}></Route>
                           <Route path = "/add-ad/:id" component = {CreateAdComponent}></Route>
+                          <Route path = "/edit-ad/:id" component = {CreateAdComponent}></Route>
                           <Route path = "/show-ad/:id" component = {ShowAdComponent}></Route>
                     </Switch>
                 </div>

@@ -26,12 +26,12 @@ class ShowAdComponent extends Component {
                     <div className = "card-body">
                         <div className = "row">
                             <label> Contenido del Anuncio: </label>
-                            <div> { this.state.anuncio.contenido }</div>
                         </div>
+                        <div><p>{ this.state.anuncio.contenido }</p></div>
                         <div className = "row">
-                            <label> Fecha del Anuncio: </label>
-                            <div> { this.state.anuncio.fecha }</div>
+                            <label> Fecha del Anuncio:<br /> </label>
                         </div>
+                        <div> <p> { this.state.anuncio.fecha }</p></div>
                     </div>
 
                 </div>

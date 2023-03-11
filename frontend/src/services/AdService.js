@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const AD_API_BASE_URL = "http://localhost:8080/anuncios/anuncios";
+const AD_API_BASE_URL = "http://localhost:8080/anuncios";
 
 class AdService {
 
