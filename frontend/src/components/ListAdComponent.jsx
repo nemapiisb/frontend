@@ -52,9 +52,10 @@ class ListAdComponent extends Component {
 
                             <thead>
                                 <tr>
-                                    <th> ID del anuncio</th>
+                                    <th> ID </th>
                                     <th> Contenido del anuncio</th>
-                                    <th> Fecha del anuncio</th>
+                                    <th> Fecha</th>
+                                    <th> Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -62,10 +63,11 @@ class ListAdComponent extends Component {
                                     this.state.anuncios.map(
                                         anuncio =>
                                         <tr key = {anuncio.id}>
-                                             <td> {anuncio.contenido} </td>
+                                             <td> {anuncio.id} </td>
+                                             <td> {anuncio.contenido}</td>
                                              <td> {anuncio.fecha}</td>
                                              <td>
-                                                 <button onClick={ () => this.editAd(anuncio.id)} className="btn btn-info">Modificar </button>
+                                                 <button style={{marginLeft: "10px"}} onClick={ () => this.editAd(anuncio.id)} className="btn btn-info">Modificar </button>
                                                  <button style={{marginLeft: "10px"}} onClick={ () => this.deleteAd(anuncio.id)} className="btn btn-danger">Borrar </button>
                                                  <button style={{marginLeft: "10px"}} onClick={ () => this.getOne(anuncio.id)} className="btn btn-info">Ver detalles </button>
                                              </td>
