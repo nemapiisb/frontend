@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import AdService from "../services/AdService";
+import AuthService from "../services/auth.service";
+import EventBus from "../common/EventBus";
 
 class ShowAdComponent extends Component {
     constructor(props) {
@@ -15,6 +17,20 @@ class ShowAdComponent extends Component {
         AdService.getOne(this.state.id).then( res => {
             this.setState({anuncio: res.data});
         })
+
+        const user = AuthService.getCurrentUser();
+
+        if (user) {
+            this.setState({
+                currentUser: user,
+                showModeratorBoard: user.roles.includes("ROLE_PORTERO"),
+                showAdminUpdateAd: user.roles.includes("ROLE_ADMIN"),
+            });
+        }
+
+        EventBus.on("logout", () => {
+            this.logOut();
+        });
     }
 
     render() {

@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import AdService from "../services/AdService";
+import {Link} from "react-router-dom";
+import AuthService from "../services/auth.service";
+import EventBus from "../common/EventBus";
 
 class ListAdComponent extends Component {
     constructor(props) {
@@ -33,16 +36,31 @@ class ListAdComponent extends Component {
             }
             this.setState({ anuncios: res.data});
         });
-    }
+
+          const user = AuthService.getCurrentUser();
+
+          if (user) {
+              this.setState({
+                  currentUser: user,
+                  showModeratorBoard: user.roles.includes("ROLE_PORTERO"),
+                  showAdminUpdateAd: user.roles.includes("ROLE_ADMIN"),
+              });
+          }
+
+          EventBus.on("logout", () => {
+              this.logOut();
+          });
+  }
 
     addAd(){
         this.props.history.push('/add-ad/_add');
     }
 
     render() {
+        const { currentUser, showModeratorBoard, showAdminUpdateAd } = this.state;
         return (
             <div>
-                 <h2 className="text-center">Lista de anuncios:</h2>
+                 <h2 className="text-center">Listado de anuncios:</h2>
                  <div className = "row">
                     <button className="btn btn-primary" onClick={this.addAd}> Añadir Anuncio </button>
                  </div>
@@ -67,8 +85,8 @@ class ListAdComponent extends Component {
                                              <td> {anuncio.contenido}</td>
                                              <td> {anuncio.fecha}</td>
                                              <td>
-                                                 <button style={{marginLeft: "10px"}} onClick={ () => this.editAd(anuncio.id)} className="btn btn-info">Modificar </button>
-                                                 <button style={{marginLeft: "10px"}} onClick={ () => this.deleteAd(anuncio.id)} className="btn btn-danger">Borrar </button>
+                                                     <button style={{marginLeft: "10px"}} onClick={ () => this.editAd(anuncio.id)} className="btn btn-info">Modificar </button>
+                                                     <button style={{marginLeft: "10px"}} onClick={ () => this.deleteAd(anuncio.id)} className="btn btn-danger">Borrar </button>
                                                  <button style={{marginLeft: "10px"}} onClick={ () => this.getOne(anuncio.id)} className="btn btn-info">Ver detalles </button>
                                              </td>
                                         </tr>
