@@ -48,6 +48,10 @@ class ShowAdComponent extends Component {
                             <label> Fecha del Anuncio:<br /> </label>
                         </div>
                         <div> <p> { this.state.anuncio.fecha }</p></div>
+                        <div className = "row">
+                            <label> Categoría del Anuncio:<br /> </label>
+                        </div>
+                        <div> <p> { this.state.anuncio.categoria }</p></div>
                     </div>
 
                 </div>

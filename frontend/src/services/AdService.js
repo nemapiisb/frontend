@@ -1,4 +1,5 @@
 import axios from 'axios';
+import authHeader from "./auth-header";
 
 const AD_API_BASE_URL = "http://localhost:8080/anuncios";
 
@@ -9,19 +10,27 @@ class AdService {
     }
 
     createAd(anuncio){
-        return axios.post(AD_API_BASE_URL, anuncio);
+        let headers = authHeader();
+        return axios.post(AD_API_BASE_URL, anuncio,{ headers });
     }
 
     getOne(anuncioId){
+
         return axios.get(AD_API_BASE_URL + '/' + anuncioId);
     }
 
+    getCategoria(anuncioCategoria){
+        return axios.get(AD_API_BASE_URL + '/' + anuncioCategoria);
+    }
+
     updateAd(anuncio, anuncioId){
-        return axios.put(AD_API_BASE_URL + '/' + anuncioId, anuncio);
+        let headers = authHeader();
+        return axios.put(AD_API_BASE_URL + '/' + anuncioId, anuncio,{ headers });
     }
 
     deleteAd(anuncioId){
-        return axios.delete(AD_API_BASE_URL + '/' + anuncioId);
+        let headers = authHeader();
+        return axios.delete(AD_API_BASE_URL + '/' + anuncioId, { headers });
     }
 }
 

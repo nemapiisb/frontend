@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import AuthService from "../services/auth.service";
 import EventBus from "../common/EventBus";
 
+
 class ListAdComponent extends Component {
     constructor(props) {
         super(props)
@@ -87,7 +88,7 @@ class ListAdComponent extends Component {
                                              <td>
                                                      <button style={{marginLeft: "10px"}} onClick={ () => this.editAd(anuncio.id)} className="btn btn-info">Modificar </button>
                                                      <button style={{marginLeft: "10px"}} onClick={ () => this.deleteAd(anuncio.id)} className="btn btn-danger">Borrar </button>
-                                                 <button style={{marginLeft: "10px"}} onClick={ () => this.getOne(anuncio.id)} className="btn btn-info">Ver detalles </button>
+                                                     <button style={{marginLeft: "10px"}} onClick={ () => this.getOne(anuncio.id)} className="btn btn-info">Ver detalles </button>
                                              </td>
                                         </tr>
                                     )
