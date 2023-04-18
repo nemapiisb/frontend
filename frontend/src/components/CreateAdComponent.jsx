@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import AdService from '../services/AdService';
+import AuthService from "../services/auth.service";
+import EventBus from "../common/EventBus";
 
 class CreateAdComponent extends Component {
     constructor(props) {
@@ -31,6 +33,20 @@ class CreateAdComponent extends Component {
                 });
             });
         }
+
+        const user = AuthService.getCurrentUser();
+
+        if (user) {
+            this.setState({
+                currentUser: user,
+                showModeratorBoard: user.roles.includes("ROLE_PORTERO"),
+                showAdminUpdateAd: user.roles.includes("ROLE_ADMIN"),
+            });
+        }
+
+        EventBus.on("logout", () => {
+            this.logOut();
+        });
     }
     saveOrUpdateAd = (e) => {
         e.preventDefault();
