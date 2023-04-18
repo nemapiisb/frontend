@@ -1,74 +1,83 @@
-import React, { Component } from 'react'
+import React, {Component, useCallback, useEffect, useState} from 'react'
 import AdService from "../services/AdService";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import AuthService from "../services/auth.service";
 import EventBus from "../common/EventBus";
 
 
-class ListAdComponent extends Component {
-    constructor(props) {
-        super(props)
+export default function ListAdComponent(){
 
-        this.state = {
-                anuncios: []
-        }
-        this.addAd = this.addAd.bind(this);
-        this.editAd = this.editAd.bind(this);
-        this.getOne = this.getOne.bind(this);
-        this.deleteAd = this.deleteAd.bind(this);
-    }
+    const [count, setCount] = useState(0);
 
-    deleteAd(id){
-        AdService.deleteAd(id).then( res => {
-            this.setState({anuncios: this.state.anuncios.filter(anuncio => anuncio.id !== id)});
-        });
-    }
-    getOne(id){
-        this.props.history.push(`/show-ad/${id}`);
-    }
-    editAd(id){
-        this.props.history.push(`/add-ad/${id}`);
-    }
-  componentDidMount(){
+    const [state, setState] = useState({ anuncios: [] });
+    const navigate = useNavigate();
+
+    const addAd = useCallback(
+        () => {
+            navigate('/add-ad/_add');
+        },
+        [], // Tells React to memoize regardless of arguments.
+    );
+
+    const editAd = useCallback(
+        (id) => {
+            navigate(`/add-ad/${id}`);
+        },
+        [], // Tells React to memoize regardless of arguments.
+    );
+
+    const getOne = useCallback(
+        (id) => {
+            navigate(`/show-ad/${id}`);
+        },
+        [], // Tells React to memoize regardless of arguments.
+    );
+
+    const deleteAd = useCallback(
+        (id) => {
+            AdService.deleteAd(id).then( res => {
+                setState({anuncios: this.state.anuncios.filter(anuncio => anuncio.id !== id)});
+            });
+        },
+        [], // Tells React to memoize regardless of arguments.
+    );
+
+    useEffect(() => {
         AdService.getAll().then((res) => {
             if(res.data==null)
             {
-                this.props.history.push('/add-ad/_add');
+                navigate('/add-ad/_add');
             }
-            this.setState({ anuncios: res.data});
+            setState({anuncios: res.data});
         });
 
-          const user = AuthService.getCurrentUser();
+        const user = AuthService.getCurrentUser();
 
-          if (user) {
-              this.setState({
-                  currentUser: user,
-                  showModeratorBoard: user.roles.includes("ROLE_PORTERO"),
-                  showAdminUpdateAd: user.roles.includes("ROLE_ADMIN"),
-              });
-          }
+        if (user) {
+          state.anuncios.map(anuncio => ({
+                ...anuncio,
+                currentUser: user,
+                showModeratorBoard: user.roles.includes("ROLE_PORTERO"),
+                showAdminUpdateAd: user.roles.includes("ROLE_ADMIN"),
+          }));
+        }
 
-          EventBus.on("logout", () => {
-              this.logOut();
-          });
-  }
+        EventBus.on("logout", () => {
+            this.logOut();
+        });
+    }, [count]);
 
-    addAd(){
-        this.props.history.push('/add-ad/_add');
-    }
-
-    render() {
-        const { currentUser, showModeratorBoard, showAdminUpdateAd } = this.state;
-        return (
+    return(
+        //const { currentUser, showModeratorBoard, showAdminUpdateAd } = this.state;
+        <>
             <div>
                  <h2 className="text-center">Listado de anuncios:</h2>
                  <div className = "row">
-                    <button className="btn btn-primary" onClick={this.addAd}> Añadir Anuncio </button>
+                    <button className="btn btn-primary" onClick={addAd}> Añadir Anuncio </button>
                  </div>
                  <br></br>
                  <div className = "row">
                         <table className = "table table-striped table-bordered">
-
                             <thead>
                                 <tr>
                                     <th> ID </th>
@@ -79,28 +88,23 @@ class ListAdComponent extends Component {
                             </thead>
                             <tbody>
                                 {
-                                    this.state.anuncios.map(
-                                        anuncio =>
+                                    state.anuncios.map(anuncio =>(
                                         <tr key = {anuncio.id}>
                                              <td> {anuncio.id} </td>
                                              <td> {anuncio.contenido}</td>
                                              <td> {anuncio.fecha}</td>
                                              <td>
-                                                     <button style={{marginLeft: "10px"}} onClick={ () => this.editAd(anuncio.id)} className="btn btn-info">Modificar </button>
-                                                     <button style={{marginLeft: "10px"}} onClick={ () => this.deleteAd(anuncio.id)} className="btn btn-danger">Borrar </button>
-                                                     <button style={{marginLeft: "10px"}} onClick={ () => this.getOne(anuncio.id)} className="btn btn-info">Ver detalles </button>
+                                                 <button style={{marginLeft: "10px"}} onClick={ () => editAd(anuncio.id)} className="btn btn-info">Modificar </button>
+                                                 <button style={{marginLeft: "10px"}} onClick={ () => deleteAd(anuncio.id)} className="btn btn-danger">Borrar </button>
+                                                 <button style={{marginLeft: "10px"}} onClick={ () => getOne(anuncio.id)} className="btn btn-info">Ver detalles </button>
                                              </td>
                                         </tr>
-                                    )
+                                    ))
                                 }
                             </tbody>
                         </table>
-
                  </div>
-
             </div>
-        )
-    }
+        </>
+    );
 }
-
-export default ListAdComponent
