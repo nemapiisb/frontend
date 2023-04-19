@@ -1,123 +1,118 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react';
+import {useNavigate, useParams} from 'react-router-dom';
 import AdService from '../services/AdService';
 import AuthService from "../services/auth.service";
 import EventBus from "../common/EventBus";
 
-class CreateAdComponent extends Component {
-    constructor(props) {
-        super(props)
+const CreateAdComponent = ({ history, match }) => {
+    const { id } = useParams();
+    //const [id, setId] = useState(match.params.id);
+    const [contenido, setContenido] = useState('');
+    const [fecha, setFecha] = useState('');
+    const [currentUser, setCurrentUser] = useState(null);
+    const [showModeratorBoard, setShowModeratorBoard] = useState(false);
+    const [showAdminUpdateAd, setShowAdminUpdateAd] = useState(false);
+    const navigate = useNavigate();
 
-        this.state = {
-            // step 2
-            id: this.props.match.params.id,
-            contenido: '',
-            fecha: ''
-        }
-        this.changeContenidoHandler = this.changeContenidoHandler.bind(this);
-        this.changeFechaHandler = this.changeFechaHandler.bind(this);
-        this.saveOrUpdateAd = this.saveOrUpdateAd.bind(this);
-    }
-
-    // step 3
-    componentDidMount() {
-
-        // step 4
-        if (this.state.id === '_add') {
-            return
+    useEffect(() => {
+        if (id === '_add') {
+            return;
         } else {
-            AdService.getOne(this.state.id).then((res) => {
+            AdService.getOne(id).then((res) => {
                 let anuncio = res.data;
-                this.setState({
-                    contenido: anuncio.contenido,
-                    fecha: anuncio.fecha
-                });
+                setContenido(anuncio.contenido);
+                setFecha(anuncio.fecha);
             });
         }
 
         const user = AuthService.getCurrentUser();
-
         if (user) {
-            this.setState({
-                currentUser: user,
-                showModeratorBoard: user.roles.includes("ROLE_PORTERO"),
-                showAdminUpdateAd: user.roles.includes("ROLE_ADMIN"),
-            });
+            setCurrentUser(user);
+            setShowModeratorBoard(user.roles.includes("ROLE_MODERATOR"));
+            setShowAdminUpdateAd(user.roles.includes("ROLE_ADMIN"));
         }
 
         EventBus.on("logout", () => {
-            this.logOut();
+            logOut();
         });
-    }
-    saveOrUpdateAd = (e) => {
+    }, []);
+
+    const saveOrUpdateAd = (e) => {
         e.preventDefault();
-        let anuncio = { contenido: this.state.contenido, fecha: this.state.fecha };
+        let anuncio = { contenido: contenido, fecha: fecha };
         console.log('anuncio => ' + JSON.stringify(anuncio));
 
-        // step 5
-        if (this.state.id === '_add') {
-        AdService.createAd(anuncio).then(res => {
-                this.props.history.push('/anuncios');
+        if (id === '_add') {
+            AdService.createAd(anuncio).then(res => {
+                //history.push('/anuncios');
+                navigate('/anuncios');
             });
         } else {
-            AdService.updateAd(anuncio, this.state.id).then(res => {
-                this.props.history.push('/anuncios');
+            AdService.updateAd(anuncio, id).then(res => {
+                //history.push('/anuncios');
+                navigate('/anuncios');
             });
         }
     }
 
-    changeContenidoHandler = (event) => {
-        this.setState({ contenido: event.target.value });
+    const changeContenidoHandler = (event) => {
+        setContenido(event.target.value);
     }
 
-    changeFechaHandler = (event) => {
-        this.setState({ fecha: event.target.value });
+    const changeFechaHandler = (event) => {
+        setFecha(event.target.value);
     }
 
-    cancel() {
-        this.props.history.push('/anuncios');
+    const cancel = () => {
+        //history.push('/anuncios');
+        navigate('/anuncios');
     }
 
-    getTitle() {
-        if (this.state.id === '_add') {
+    const getTitle = () => {
+        if (id === '_add') {
             return <h3 className="text-center">Añadir anuncio</h3>
         } else {
             return <h3 className="text-center">Modificar anuncio</h3>
         }
     }
-    render() {
-        return (
-            <div>
-                <br></br>
-                <div className="container">
-                    <div className="row">
-                        <div className="card col-md-6 offset-md-3 offset-md-3">
-                            {
-                                this.getTitle()
-                            }
-                            <div className="card-body">
-                                <form>
-                                    <div className="form-group">
-                                        <label> Contenido: </label>
-                                        <input placeholder="Contenido" name="contenido" className="form-control"
-                                            value={this.state.contenido} onChange={this.changeContenidoHandler} />
-                                    </div>
-                                    <div className="form-group">
-                                        <label> Fecha: </label>
-                                        <input placeholder="fecha" name="fecha" className="form-control"
-                                            value={this.state.fecha} onChange={this.changeFechaHandler} />
-                                    </div>
 
-                                    <button className="btn btn-success" onClick={this.saveOrUpdateAd}>Guardar</button>
-                                    <button className="btn btn-danger" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancelar</button>
-                                </form>
-                            </div>
+    const logOut = () => {
+        // Implementa la función logOut aquí o elimina esta línea si no la necesitas
+    }
+    console.log(id);
+    return (
+        <div>
+            <br></br>
+            <div className="container">
+                <div className="row">
+                    <div className="card col-md-6 offset-md-3 offset-md-3">
+                        {
+                            getTitle()
+                        }
+                        <div className="card-body">
+                            <form>
+                                <div className="form-group">
+                                    <label> Contenido: </label>
+                                    <input placeholder="Contenido" name="contenido" className="form-control"
+                                           value={contenido} onChange={changeContenidoHandler} />
+                                </div>
+                                <div className="form-group">
+                                    <label> Fecha: </label>
+                                    <input placeholder="fecha" name="fecha" className="form-control"
+                                           value={fecha} onChange={changeFechaHandler} />
+                                </div>
+
+                                <button className="btn btn-success" onClick={saveOrUpdateAd}>Guardar</button>
+                                <button className="btn btn-danger" onClick={cancel} style={{ marginLeft: "10px" }}>Cancelar</button>
+                            </form>
                         </div>
                     </div>
-
                 </div>
             </div>
-        )
-    }
+        </div>
+
+
+    )
 }
 
 export default CreateAdComponent

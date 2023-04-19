@@ -1,63 +1,63 @@
-import React, { Component } from 'react'
+import React, { useEffect, useState } from 'react';
 import AdService from "../services/AdService";
 import AuthService from "../services/auth.service";
 import EventBus from "../common/EventBus";
+import {useParams} from "react-router-dom";
 
-class ShowAdComponent extends Component {
-    constructor(props) {
-        super(props)
+const ShowAdComponent = (props) => {
+    const [anuncio, setAnuncio] = useState({});
+    const [currentUser, setCurrentUser] = useState(null);
+    const [showModeratorBoard, setShowModeratorBoard] = useState(false);
+    const [showAdminUpdateAd, setShowAdminUpdateAd] = useState(false);
+    const { id } = useParams();
 
-        this.state = {
-            id: this.props.match.params.id,
-            anuncio: {}
-        }
-    }
+    useEffect(() => {
+        //const id = props.match.params.id;
 
-    componentDidMount(){
-        AdService.getOne(this.state.id).then( res => {
-            this.setState({anuncio: res.data});
-        })
+        AdService.getOne(id).then(res => {
+            setAnuncio(res.data);
+        });
 
         const user = AuthService.getCurrentUser();
 
         if (user) {
-            this.setState({
-                currentUser: user,
-                showModeratorBoard: user.roles.includes("ROLE_PORTERO"),
-                showAdminUpdateAd: user.roles.includes("ROLE_ADMIN"),
-            });
+            setCurrentUser(user);
+            setShowModeratorBoard(user.roles.includes("ROLE_PORTERO"));
+            setShowAdminUpdateAd(user.roles.includes("ROLE_ADMIN"));
         }
 
         EventBus.on("logout", () => {
-            this.logOut();
+            logOut();
         });
+
+    }, []);
+
+    const logOut = () => {
+        // Implementa la lógica de cierre de sesión aquí
     }
 
-    render() {
-        return (
-            <div>
-                <br></br>
-                <div className = "card col-md-6 offset-md-3">
-                    <h3 className = "text-center"> Ver detalles del Anuncio</h3>
-                    <div className = "card-body">
-                        <div className = "row">
-                            <label> Contenido del Anuncio: </label>
-                        </div>
-                        <div><p>{ this.state.anuncio.contenido }</p></div>
-                        <div className = "row">
-                            <label> Fecha del Anuncio:<br /> </label>
-                        </div>
-                        <div> <p> { this.state.anuncio.fecha }</p></div>
-                        <div className = "row">
-                            <label> Categoría del Anuncio:<br /> </label>
-                        </div>
-                        <div> <p> { this.state.anuncio.categoria }</p></div>
+    return (
+        <div>
+            <br></br>
+            <div className="card col-md-6 offset-md-3">
+                <h3 className="text-center"> Ver detalles del Anuncio</h3>
+                <div className="card-body">
+                    <div className="row">
+                        <label> Contenido del Anuncio: </label>
                     </div>
-
+                    <div><p>{anuncio.contenido}</p></div>
+                    <div className="row">
+                        <label> Fecha del Anuncio:<br /> </label>
+                    </div>
+                    <div> <p> {anuncio.fecha}</p></div>
+                    <div className="row">
+                        <label> Categoría del Anuncio:<br /> </label>
+                    </div>
+                    <div> <p> {anuncio.categoria}</p></div>
                 </div>
             </div>
-        )
-    }
+        </div>
+    )
 }
 
-export default ShowAdComponent
+export default ShowAdComponent;
