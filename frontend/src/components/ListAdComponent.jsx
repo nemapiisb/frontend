@@ -85,6 +85,7 @@ export default function ListAdComponent(){
               <thead>
               <tr>
                 <th> ID </th>
+                <th> Categoría </th>
                 <th> Contenido del anuncio</th>
                 <th> Fecha</th>
                 <th> Acciones</th>
@@ -95,6 +96,7 @@ export default function ListAdComponent(){
                 state.anuncios.map(anuncio =>(
                     <tr key = {anuncio.id}>
                       <td> {anuncio.id} </td>
+                      <td> {anuncio.categoria} </td>
                       <td> {anuncio.contenido}</td>
                       <td> {anuncio.fecha}</td>
                       <td>

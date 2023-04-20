@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import AdService from '../services/AdService';
 import AuthService from "../services/auth.service";
 import EventBus from "../common/EventBus";
 
 const CreateAdComponent = ({ history, match }) => {
     const { id } = useParams();
-    //const [id, setId] = useState(match.params.id);
     const [contenido, setContenido] = useState('');
     const [fecha, setFecha] = useState('');
+    const [categoria, setCategoria] = useState('');
     const [currentUser, setCurrentUser] = useState(null);
     const [showModeratorBoard, setShowModeratorBoard] = useState(false);
     const [showAdminUpdateAd, setShowAdminUpdateAd] = useState(false);
@@ -22,6 +22,7 @@ const CreateAdComponent = ({ history, match }) => {
                 let anuncio = res.data;
                 setContenido(anuncio.contenido);
                 setFecha(anuncio.fecha);
+                setCategoria(anuncio.categoria);
             });
         }
 
@@ -35,11 +36,12 @@ const CreateAdComponent = ({ history, match }) => {
         EventBus.on("logout", () => {
             logOut();
         });
-    }, []);
+    }, [id]); // Agrega "id" como dependencia en el arreglo de dependencias de useEffect
+
 
     const saveOrUpdateAd = (e) => {
         e.preventDefault();
-        let anuncio = { contenido: contenido, fecha: fecha };
+        let anuncio = { contenido: contenido, fecha: fecha, categoria: categoria }; // También incluye la categoría en el objeto
         console.log('anuncio => ' + JSON.stringify(anuncio));
 
         if (id === '_add') {
@@ -63,6 +65,10 @@ const CreateAdComponent = ({ history, match }) => {
         setFecha(event.target.value);
     }
 
+    const changeCategoriaHandler = (event) => {
+        setCategoria(event.target.value);
+    }
+
     const cancel = () => {
         //history.push('/anuncios');
         navigate('/anuncios');
@@ -79,7 +85,7 @@ const CreateAdComponent = ({ history, match }) => {
     const logOut = () => {
         // Implementa la función logOut aquí o elimina esta línea si no la necesitas
     }
-    console.log(id);
+
     return (
         <div>
             <br></br>
@@ -100,6 +106,16 @@ const CreateAdComponent = ({ history, match }) => {
                                     <label> Fecha: </label>
                                     <input placeholder="fecha" name="fecha" className="form-control"
                                            value={fecha} onChange={changeFechaHandler} />
+                                </div>
+                                <div className="form-group">
+                                    <label> Categoría: </label>
+                                    <select name="categoria" className="form-control"
+                                            value={categoria} onChange={changeCategoriaHandler}>
+                                        <option value="SELECCIONA" >Selecciona una opcion</option>
+                                        <option value="COMUNICADO">Comunicado</option>
+                                        <option value="MANTENIMIENTO">Mantenimiento</option>
+                                        <option value="CONVOCATORIA">Convocatoria</option>
+                                    </select>
                                 </div>
 
                                 <button className="btn btn-success" onClick={saveOrUpdateAd}>Guardar</button>
