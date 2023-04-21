@@ -1,0 +1,17 @@
+.table-color1 {
+  background-color: #ffffcc !important; /* Cambia el color de fondo a amarillo suave (#ffffcc) */
+  color: #000000 !important; /* Cambia el color de texto a negro (#000000) */
+}
+.table-color2 {
+  background-color: #d3eefc !important; /* Cambia el color de fondo a otro tono de azul suave (#d3eefc) */
+  color: #000000 !important; /* Cambia el color de texto a negro (#000000) */
+}
+.table-color3 {
+  background-color: #F5F5DC !important; /* Cambia el color de fondo a otro tono de azul suave (#d3eefc) */
+  color: black !important; /* Cambia el color de texto a negro (#000000) */
+}
+.mi-botón {
+  display: inline-block;
+  margin-left: 10px;
+  /* Otros estilos adicionales para los botones */
+}

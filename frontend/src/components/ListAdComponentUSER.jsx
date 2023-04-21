@@ -3,6 +3,7 @@ import AdService from "../services/AdService";
 import {Link, useNavigate} from "react-router-dom";
 import AuthService from "../services/auth.service";
 import EventBus from "../common/EventBus";
+import ListAdComponentCSS from "../hojas-de-estilo/ListAdComponent.css";
 
 
 export default function ListAdComponent(){
@@ -14,14 +15,14 @@ export default function ListAdComponent(){
 
   const addAd = useCallback(
       () => {
-        navigate('/add-ad/_add');
+        navigate('/add-adUSER/_add');
       },
       [], // Tells React to memoize regardless of arguments.
   );
 
   const editAd = useCallback(
       (id) => {
-        navigate(`/add-ad/${id}`);
+        navigate(`/add-adUSER/${id}`);
       },
       [], // Tells React to memoize regardless of arguments.
   );
@@ -50,7 +51,7 @@ export default function ListAdComponent(){
     AdService.getAll().then((res) => {
       if(res.data==null)
       {
-        navigate('/add-ad/_add');
+        navigate('/add-adUSER/_add');
       }
       setState({anuncios: res.data});
     });
@@ -81,7 +82,7 @@ export default function ListAdComponent(){
           </div>
           <br></br>
           <div className = "row">
-            <table className = "table table-striped table-bordered">
+            <table className="table table-striped table-bordered">
               <thead>
               <tr>
                 <th> ID </th>
@@ -100,9 +101,7 @@ export default function ListAdComponent(){
                       <td> {anuncio.contenido}</td>
                       <td> {anuncio.fecha}</td>
                       <td>
-                        <button className="mi-botón" onClick={ () => editAd(anuncio.id)} className="btn btn-info">Modificar </button>
-                        <button className="mi-botón" onClick={ () => deleteAd(anuncio.id)} className="btn btn-danger">Borrar </button>
-                        <button className="mi-botón" onClick={ () => getOne(anuncio.id)} className="btn btn-info">Ver detalles </button>
+                        <button style={{marginLeft: "10px"}} onClick={ () => getOne(anuncio.id)} className="btn btn-info">Ver detalles </button>
                       </td>
                     </tr>
                 ))

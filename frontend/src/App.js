@@ -19,6 +19,12 @@ import EventBus from "./common/EventBus";
 import ListAdComponent from "./components/ListAdComponent";
 import CreateAdComponent from "./components/CreateAdComponent";
 import ShowAdComponent from "./components/ShowAdComponent";
+import ListAdComponentUSER from "./components/ListAdComponentUSER";
+import CreateAdComponentUSER from "./components/CreateAdComponentUSER";
+import ListUserComponent from "./components/ListUserComponent";
+import CreateUserComponent from "./components/CreateUserComponent";
+import showUserComponent from "./components/ShowUserComponent";
+import ShowUserComponent from "./components/ShowUserComponent";
 
 class App extends Component {
     constructor(props) {
@@ -28,6 +34,7 @@ class App extends Component {
         this.state = {
             showModeratorBoard: false,
             showAdminBoard: false,
+            showUserManagementBoard: false,
             currentUser: undefined,
         };
     }
@@ -40,6 +47,7 @@ class App extends Component {
                 currentUser: user,
                 showModeratorBoard: user.roles.includes("ROLE_PORTERO"),
                 showAdminBoard: user.roles.includes("ROLE_ADMIN"),
+                showUserManagementBoard: user.roles.includes("ROLE_ADMIN"),
             });
         }
 
@@ -57,12 +65,13 @@ class App extends Component {
         this.setState({
             showModeratorBoard: false,
             showAdminBoard: false,
+            showUserManagementBoard: false,
             currentUser: undefined,
         });
     }
 
     render() {
-        const { currentUser, showModeratorBoard, showAdminBoard } = this.state;
+        const { currentUser, showModeratorBoard, showAdminBoard, showUserManagementBoard } = this.state;
 
         return (
             <div>
@@ -87,8 +96,16 @@ class App extends Component {
 
                         {showAdminBoard && (
                             <li className="nav-item">
-                                <Link to={"/admin"} className="nav-link">
+                                {/*<Link to={"/admin"} className="nav-link">*/}
+                                <Link to={"/anunciosAdmin"} className="nav-link">
                                     Admin Board
+                                </Link>
+                            </li>
+                        )}
+                        {showUserManagementBoard && (
+                            <li className="nav-item">
+                                <Link to={"/listadoUsers"} className="nav-link">
+                                    User Management
                                 </Link>
                             </li>
                         )}
@@ -96,7 +113,7 @@ class App extends Component {
                         {currentUser && (
                             <li className="nav-item">
                                 <Link to={"/anuncios"} className="nav-link">
-                                    User
+                                    User Board
                                 </Link>
                             </li>
                         )}
@@ -142,8 +159,16 @@ class App extends Component {
                         <Route path="/user" element={<BoardUser />} />
                         <Route path="/mod" element={<BoardModerator />} />
                         <Route path="/admin" element={<BoardAdmin />} />
-                        <Route path="/anuncios" element={<ListAdComponent />} />
+                        <Route path="/anunciosAdmin" element={<ListAdComponent />} />
+                        <Route path="/anuncios" element={<ListAdComponentUSER />} />
+                        <Route path="/listadoUsers" element={<ListUserComponent />} />
+
+                        <Route path="/add-us/:id" element={<CreateUserComponent />} />
+                        <Route path="/edit-us/:id" element={<CreateUserComponent />} />
+                        <Route path="/show-us/:id" element={<ShowUserComponent />} />
+
                         <Route path="/add-ad/:id" element={<CreateAdComponent />} />
+                        <Route path="/add-adUSER/:id" element={<CreateAdComponentUSER />} />
                         <Route path="/edit-ad/:id" element={<CreateAdComponent />} />
                         <Route path="/show-ad/:id" element={<ShowAdComponent />} />
                     </Routes>

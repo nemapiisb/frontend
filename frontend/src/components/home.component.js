@@ -35,6 +35,8 @@ export default class Home extends Component {
         <header className="jumbotron">
           <h3>{this.state.content}</h3>
         </header>
+        <h1>Bienvenidos a Neighbors Manager</h1>
+        <p>En esta pagina estaria interesante informar de la utilizacion de la web y de que comunidad de vecinos pertenece</p>
       </div>
     );
   }
