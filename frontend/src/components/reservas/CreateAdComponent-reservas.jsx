@@ -8,7 +8,7 @@ const CreateAdComponent = ({ history, match }) => {
     const { id } = useParams();
     const [contenido, setContenido] = useState('');
     const [fecha, setFecha] = useState('');
-    const [categoria, setCategoria] = useState('COMUNICADO');
+    const [categoria, setCategoria] = useState('RESERVA');
     const [currentUser, setCurrentUser] = useState(null);
     const [showModeratorBoard, setShowModeratorBoard] = useState(false);
     const [showAdminUpdateAd, setShowAdminUpdateAd] = useState(false);
@@ -107,7 +107,7 @@ const CreateAdComponent = ({ history, match }) => {
                                            value={fecha} onChange={changeFechaHandler} />
                                 </div>
                                 <div className="form-group">
-                                    <label> Categoría: {categoria} - {currentUser}</label>
+                                    <label> Categoría: {categoria}</label>
                                 </div>
 
                                 <button className="btn btn-success" onClick={saveOrUpdateAd}>Guardar</button>

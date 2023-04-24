@@ -8,7 +8,7 @@ const CreateAdComponent = ({ history, match }) => {
     const { id } = useParams();
     const [contenido, setContenido] = useState('');
     const [fecha, setFecha] = useState('');
-    const [categoria, setCategoria] = useState('COMUNICADO');
+    const [categoria, setCategoria] = useState('INCIDENCIA');
     const [currentUser, setCurrentUser] = useState(null);
     const [showModeratorBoard, setShowModeratorBoard] = useState(false);
     const [showAdminUpdateAd, setShowAdminUpdateAd] = useState(false);

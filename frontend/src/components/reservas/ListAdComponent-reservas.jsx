@@ -51,8 +51,8 @@ export default function ListAdComponent() {
       if (res.data == null) {
         navigate('/add-adreserva/_add');
       }
-      // Filtrar los anuncios por categoría "COMUNICADO"
-      const filteredAnuncios = res.data.filter(anuncio => anuncio.categoria === "COMUNICADO");
+      // Filtrar los anuncios por categoría "RESERVA"
+      const filteredAnuncios = res.data.filter(anuncio => anuncio.categoria === "RESERVA");
       setState({ anuncios: filteredAnuncios });
     });
 

@@ -94,7 +94,14 @@ export default function ListAdComponent(){
               <tbody>
               {
                 state.anuncios.map(anuncio =>(
-                    <tr key={anuncio.id} className={anuncio.categoria === 'MANTENIMIENTO' ? 'table-color1' : (anuncio.categoria === 'CONVOCATORIA' ? 'table-color2' : (anuncio.categoria === 'COMUNICADO' ? 'table-color3' : ''))}>
+                    <tr key={anuncio.id} className={
+                      anuncio.categoria === 'ANUNCIO' ? 'table-color1' :
+                          (anuncio.categoria === 'ACTA' ? 'table-color2' :
+                              (anuncio.categoria === 'COMUNICADO' ? 'table-color3' :
+                                  (anuncio.categoria === 'INCIDENCIA' ? 'table-color4' :
+                                      (anuncio.categoria === 'RESERVA' ? 'table-color5' :
+                                          ''))))}>
+
                     <td> {anuncio.id} </td>
                       <td> {anuncio.categoria} </td>
                       <td> {anuncio.contenido}</td>

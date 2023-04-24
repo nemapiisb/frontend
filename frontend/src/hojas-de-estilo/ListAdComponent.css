@@ -10,6 +10,14 @@
   background-color: #F5F5DC !important; /* Cambia el color de fondo a otro tono de azul suave (#d3eefc) */
   color: black !important; /* Cambia el color de texto a negro (#000000) */
 }
+.table-color4 {
+  background-color: #7FFFD4 !important; /* Cambia el color de fondo a otro tono de azul suave (#d3eefc) */
+  color: black !important; /* Cambia el color de texto a negro (#000000) */
+}
+.table-color5 {
+  background-color: #F0E68C !important; /* Cambia el color de fondo a otro tono de azul suave (#d3eefc) */
+  color: black !important; /* Cambia el color de texto a negro (#000000) */
+}
 .mi-botón {
   display: inline-block;
   margin-left: 10px;

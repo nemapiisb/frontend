@@ -47,12 +47,12 @@ const CreateAdComponent = ({ history, match }) => {
         if (id === '_add') {
             AdService.createAd(anuncio).then(res => {
                 //history.push('/anuncios');
-                navigate('/anuncios');
+                navigate('/anunciosAdmin');
             });
         } else {
             AdService.updateAd(anuncio, id).then(res => {
                 //history.push('/anuncios');
-                navigate('/anuncios');
+                navigate('/anunciosAdmin');
             });
         }
     }
@@ -71,7 +71,7 @@ const CreateAdComponent = ({ history, match }) => {
 
     const cancel = () => {
         //history.push('/anuncios');
-        navigate('/anuncios');
+        navigate('/anunciosAdmin');
     }
 
     const getTitle = () => {
@@ -113,8 +113,10 @@ const CreateAdComponent = ({ history, match }) => {
                                             value={categoria} onChange={changeCategoriaHandler}>
                                         <option value="SELECCIONA" >Selecciona una opcion</option>
                                         <option value="COMUNICADO">Comunicado</option>
-                                        <option value="MANTENIMIENTO">Mantenimiento</option>
-                                        <option value="CONVOCATORIA">Convocatoria</option>
+                                        <option value="ACTA">Acta de Reunión</option>
+                                        <option value="ANUNCIO">Anuncio Vecinal</option>
+                                        <option value="INCIDENCIA">Incidencia</option>
+                                        <option value="RESERVA">Reserva</option>
                                     </select>
                                 </div>
 

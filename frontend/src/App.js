@@ -58,6 +58,7 @@ class App extends Component {
         this.state = {
             showModeratorBoard: false,
             showAdminBoard: false,
+            showVecinoBoard: false,
             showBoardComunicados: false,
             showBoardActas: false,
             showBoardAnuncios: false,
@@ -76,6 +77,7 @@ class App extends Component {
                 currentUser: user,
                 showModeratorBoard: user.roles.includes("ROLE_PORTERO"),
                 showAdminBoard: user.roles.includes("ROLE_ADMIN"),
+                showVecinoBoard: user.roles.includes("ROLE_VECINO"),
                 showBoardComunicados: user.roles.includes("ROLE_ADMIN"),
                 showBoardActas: user.roles.includes("ROLE_ADMIN"),
                 showBoardAnuncios: user.roles.includes("ROLE_ADMIN"),
@@ -99,6 +101,7 @@ class App extends Component {
         this.setState({
             showModeratorBoard: false,
             showAdminBoard: false,
+            showVecinoBoard: false,
             showBoardComunicados:false,
             showBoardActas: false,
             showBoardAnuncios: false,
@@ -110,7 +113,7 @@ class App extends Component {
     }
 
     render() {
-        const { currentUser, showModeratorBoard, showAdminBoard, showBoardComunicados, showBoardActas, showBoardAnuncios, showBoardIncidencias, showBoardReservas, showUserManagementBoard } = this.state;
+        const { currentUser, showModeratorBoard, showAdminBoard, showVecinoBoard} = this.state;
 
         return (
             <div>
@@ -141,77 +144,77 @@ class App extends Component {
                                 </Link>
                             </li>
                         )}
-                        {showBoardComunicados && (
+                        {showAdminBoard && (
                             <li className="nav-item">
                                 <Link to={"/comunicadosGestoria"} className="nav-link">
                                     Comunicados Gestoría
                                 </Link>
                             </li>
                         )}
-                        {!showBoardComunicados && (
+                        {showVecinoBoard && (
                             <li className="nav-item">
                                 <Link to={"/comunicadosGestoriaUSER"} className="nav-link">
                                     Comunicados Gestoría
                                 </Link>
                             </li>
                         )}
-                        {showBoardActas && (
+                        {showAdminBoard && (
                             <li className="nav-item">
                                 <Link to={"/actasReunion"} className="nav-link">
                                     Actas De Reunión
                                 </Link>
                             </li>
                         )}
-                        {!showBoardActas && (
+                        {showVecinoBoard && (
                             <li className="nav-item">
                                 <Link to={"/actasReunionUSER"} className="nav-link">
                                     Actas De Reunión
                                 </Link>
                             </li>
                         )}
-                        {showBoardAnuncios && (
+                        {showAdminBoard && (
                             <li className="nav-item">
                                 <Link to={"/anunciosVecinales"} className="nav-link">
                                     Anuncios Vecinales
                                 </Link>
                             </li>
                         )}
-                        {!showBoardAnuncios && (
+                        {showVecinoBoard && (
                             <li className="nav-item">
                                 <Link to={"/anunciosVecinalesUSER"} className="nav-link">
                                     Anuncios Vecinales
                                 </Link>
                             </li>
                         )}
-                        {showBoardIncidencias && (
+                        {showAdminBoard && (
                             <li className="nav-item">
                                 <Link to={"/incidencias"} className="nav-link">
                                     Incidencias
                                 </Link>
                             </li>
                         )}
-                        {!showBoardIncidencias && (
+                        {showVecinoBoard && (
                             <li className="nav-item">
                                 <Link to={"/incidenciasUSER"} className="nav-link">
                                     Incidencias
                                 </Link>
                             </li>
                         )}
-                        {showBoardReservas&& (
+                        {showAdminBoard && (
                             <li className="nav-item">
                                 <Link to={"/reservas"} className="nav-link">
                                     Reservas
                                 </Link>
                             </li>
                         )}
-                        {!showBoardReservas&& (
+                        {showVecinoBoard && (
                             <li className="nav-item">
                                 <Link to={"/reservasUSER"} className="nav-link">
                                     Reservas
                                 </Link>
                             </li>
                         )}
-                        {showUserManagementBoard && (
+                        {showAdminBoard && (
                             <li className="nav-item">
                                 <Link to={"/listadoUsers"} className="nav-link">
                                     User Management
@@ -219,7 +222,7 @@ class App extends Component {
                             </li>
                         )}
 
-                        {currentUser  && (
+                        {showAdminBoard  && (
                             <li className="nav-item">
                                 <Link to={"/anuncios"} className="nav-link">
                                     User Board
