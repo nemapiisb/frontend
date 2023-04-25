@@ -92,6 +92,7 @@ export default function ListUserComponent(){
                 <th> Email </th>
                 <th> Password</th>
                 <th> Roles</th>
+                <th> ID´s del rol</th>
                 <th> Acciones</th>
               </tr>
               </thead>
@@ -103,8 +104,8 @@ export default function ListUserComponent(){
                       <td>{usuario.username}</td>
                       <td>{usuario.email}</td>
                       <td>{usuario.password}</td>
-                      <td>{usuario.roles[0]?.name ?? 'N/A'}</td>
-                      <td>{usuario.roles[0]?.id ?? 'N/A'}</td>
+                      <td>{usuario.roles[0]?.name ?? 'N/A'}<br/>{usuario.roles[1]?.name ?? 'N/A'}<br/>{usuario.roles[2]?.name ?? 'N/A'}</td>
+                      <td>{usuario.roles[0]?.id ?? 'N/A'}<br/>{usuario.roles[1]?.id ?? 'N/A'}<br/>{usuario.roles[2]?.id ?? 'N/A'}</td>
                       <td>
                         <button className="mi-botón" onClick={() => editUs(usuario.id)} className="btn btn-info">Modificar </button>
                         <button className="mi-botón" onClick={() => deleteUs(usuario.id)} className="btn btn-danger">Borrar </button>
