@@ -4,7 +4,7 @@ import {Link, useNavigate} from "react-router-dom";
 import AuthService from "../../services/auth.service";
 import EventBus from "../../common/EventBus";
 import VecinoService from "../../services/VecinoService";
-import UserService from "../../services/user.service";
+
 
 
 export default function ListUserComponent(){
@@ -50,7 +50,7 @@ export default function ListUserComponent(){
   );
 
   useEffect(() => {
-    UserService.getVecinos().then((res) => {
+    VecinoService.getVecinos().then((res) => {
       if(res.data==null)
       {
         navigate('/add-us/_add');
@@ -88,9 +88,10 @@ export default function ListUserComponent(){
               <thead>
               <tr>
                 <th> ID </th>
-                <th> Categoría </th>
-                <th> Contenido del Usuario</th>
-                <th> Fecha</th>
+                <th> Nombre </th>
+                <th> Email </th>
+                <th> Password</th>
+                <th> Roles</th>
                 <th> Acciones</th>
               </tr>
               </thead>
@@ -99,7 +100,11 @@ export default function ListUserComponent(){
                 state.usuarios.map(usuario => (
                     <tr key={usuario.id}>
                       <td>{usuario.id}</td>
-                      {/*<td>{usuario.contenido}</td><td>{usuario.fecha}</td>*/}
+                      <td>{usuario.username}</td>
+                      <td>{usuario.email}</td>
+                      <td>{usuario.password}</td>
+                      <td>{usuario.roles[0]?.name ?? 'N/A'}</td>
+                      <td>{usuario.roles[0]?.id ?? 'N/A'}</td>
                       <td>
                         <button className="mi-botón" onClick={() => editUs(usuario.id)} className="btn btn-info">Modificar </button>
                         <button className="mi-botón" onClick={() => deleteUs(usuario.id)} className="btn btn-danger">Borrar </button>
@@ -108,6 +113,8 @@ export default function ListUserComponent(){
                     </tr>
                 ))
               }
+
+
               </tbody>
 
             </table>

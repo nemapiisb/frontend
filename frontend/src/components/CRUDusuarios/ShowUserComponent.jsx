@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import AdService from "../../services/AdService";
 import AuthService from "../../services/auth.service";
 import EventBus from "../../common/EventBus";
 import {useParams} from "react-router-dom";
+import VecinoService from "../../services/VecinoService";
 
 const ShowAdComponent = (props) => {
-    const [anuncio, setAnuncio] = useState({});
+    const [usuario, setUsuario] = useState({});
     const [currentUser, setCurrentUser] = useState(null);
     const [showModeratorBoard, setShowModeratorBoard] = useState(false);
     const [showAdminUpdateAd, setShowAdminUpdateAd] = useState(false);
@@ -14,8 +14,8 @@ const ShowAdComponent = (props) => {
     useEffect(() => {
         //const id = props.match.params.id;
 
-        AdService.getOne(id).then(res => {
-            setAnuncio(res.data);
+        VecinoService.getVecinoById(id).then(res => {
+            setUsuario(res.data);
         });
 
         const user = AuthService.getCurrentUser();
@@ -40,20 +40,20 @@ const ShowAdComponent = (props) => {
         <div>
             <br></br>
             <div className="card col-md-6 offset-md-3">
-                <h3 className="text-center"> Ver detalles del Anuncio</h3>
+                <h3 className="text-center"> Ver detalles del Usuario</h3>
                 <div className="card-body">
                     <div className="row">
-                        <label> Contenido del Anuncio: </label>
+                        <label> Id del Usuario: </label>
                     </div>
-                    <div><p>{anuncio.contenido}</p></div>
+                    <div><p>{usuario.id}</p></div>
                     <div className="row">
-                        <label> Fecha del Anuncio:<br /> </label>
+                        <label> Nombre del Usuario:<br /> </label>
                     </div>
-                    <div> <p> {anuncio.fecha}</p></div>
+                    <div> <p> {usuario.username}</p></div>
                     <div className="row">
-                        <label> Categoría del Anuncio:<br /> </label>
+                        <label> Email:<br /> </label>
                     </div>
-                    <div> <p> {anuncio.categoria}</p></div>
+                    <div> <p> {usuario.email}</p></div>
                 </div>
             </div>
         </div>

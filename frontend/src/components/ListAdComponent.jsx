@@ -28,7 +28,7 @@ export default function ListAdComponent(){
 
   const getOne = useCallback(
       (id) => {
-        navigate(`/show-ad/${id}`);
+        navigate(`/show-us/${id}`);
       },
       [], // Tells React to memoize regardless of arguments.
   );

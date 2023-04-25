@@ -4,12 +4,13 @@ import AdService from '../../services/AdService';
 import AuthService from "../../services/auth.service";
 import EventBus from "../../common/EventBus";
 import VecinoService from "../../services/VecinoService";
+import vecinoService from "../../services/VecinoService";
 
 const CreateAdComponent = ({ history, match }) => {
     const { id } = useParams();
-    const [contenido, setContenido] = useState('');
-    const [fecha, setFecha] = useState('');
-    const [categoria, setCategoria] = useState('');
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [currentUser, setCurrentUser] = useState(null);
     const [showModeratorBoard, setShowModeratorBoard] = useState(false);
     const [showAdminUpdateAd, setShowAdminUpdateAd] = useState(false);
@@ -19,11 +20,11 @@ const CreateAdComponent = ({ history, match }) => {
         if (id === '_add') {
             return;
         } else {
-            AdService.getOne(id).then((res) => {
-                let anuncio = res.data;
-                setContenido(anuncio.contenido);
-                setFecha(anuncio.fecha);
-                setCategoria(anuncio.categoria);
+            VecinoService.getVecinoById(id).then((res) => {
+                let usuario = res.data;
+                setUsername(usuario.username);
+                setEmail(usuario.email);
+                setPassword(usuario.password);
             });
         }
 
@@ -40,46 +41,46 @@ const CreateAdComponent = ({ history, match }) => {
     }, [id]); // Agrega "id" como dependencia en el arreglo de dependencias de useEffect
 
 
-    const saveOrUpdateAd = (e) => {
+    const saveOrUpdateUs = (e) => {
         e.preventDefault();
-        let anuncio = { contenido: contenido, fecha: fecha, categoria: categoria }; // También incluye la categoría en el objeto
-        console.log('anuncio => ' + JSON.stringify(anuncio));
+        let usuario = { username: username, email: email, password: password }; // También incluye la categoría en el objeto
+        console.log('usuario => ' + JSON.stringify(usuario));
 
         if (id === '_add') {
-            AdService.createAd(anuncio).then(res => {
+            vecinoService.crearVecino(usuario).then(res => {
                 //history.push('/anuncios');
-                navigate('/anuncios');
+                navigate('/listadoUsers');
             });
         } else {
-            AdService.updateAd(anuncio, id).then(res => {
+            vecinoService.updateVecino(usuario, id).then(res => {
                 //history.push('/anuncios');
-                navigate('/anuncios');
+                navigate('/listadoUsers');
             });
         }
     }
 
-    const changeContenidoHandler = (event) => {
-        setContenido(event.target.value);
+    const changeUsernameHandler = (event) => {
+        setUsername(event.target.value);
     }
 
-    const changeFechaHandler = (event) => {
-        setFecha(event.target.value);
+    const changeEmailHandler = (event) => {
+        setEmail(event.target.value);
     }
 
-    const changeCategoriaHandler = (event) => {
-        setCategoria(event.target.value);
+    const changePasswordHandler = (event) => {
+        setPassword(event.target.value);
     }
 
     const cancel = () => {
         //history.push('/anuncios');
-        navigate('/anuncios');
+        navigate('/listadoUsers');
     }
 
     const getTitle = () => {
         if (id === '_add') {
-            return <h3 className="text-center">Añadir anuncio</h3>
+            return <h3 className="text-center">Añadir Usuario</h3>
         } else {
-            return <h3 className="text-center">Modificar anuncio</h3>
+            return <h3 className="text-center">Modificar Usuario</h3>
         }
     }
 
@@ -99,27 +100,22 @@ const CreateAdComponent = ({ history, match }) => {
                         <div className="card-body">
                             <form>
                                 <div className="form-group">
-                                    <label> Contenido: </label>
-                                    <input placeholder="Contenido" name="contenido" className="form-control"
-                                           value={contenido} onChange={changeContenidoHandler} />
+                                    <label> Username: </label>
+                                    <input placeholder="Nombre de Usuario" name="username" className="form-control"
+                                           value={username} onChange={changeUsernameHandler} />
                                 </div>
                                 <div className="form-group">
-                                    <label> Fecha: </label>
-                                    <input placeholder="fecha" name="fecha" className="form-control"
-                                           value={fecha} onChange={changeFechaHandler} />
+                                    <label> Email: </label>
+                                    <input placeholder="email" name="email" className="form-control"
+                                           value={email} onChange={changeEmailHandler} />
                                 </div>
                                 <div className="form-group">
-                                    <label> Categoría: </label>
-                                    <select name="categoria" className="form-control"
-                                            value={categoria} onChange={changeCategoriaHandler}>
-                                        <option value="SELECCIONA" >Selecciona una opcion</option>
-                                        <option value="COMUNICADO">Comunicado</option>
-                                        <option value="MANTENIMIENTO">Mantenimiento</option>
-                                        <option value="CONVOCATORIA">Convocatoria</option>
-                                    </select>
+                                    <label> Contraseña: </label>
+                                    <input name="password" className="form-control"
+                                            value={password} onChange={changePasswordHandler} />
                                 </div>
 
-                                <button className="btn btn-success" onClick={saveOrUpdateAd}>Guardar</button>
+                                <button className="btn btn-success" onClick={saveOrUpdateUs}>Guardar</button>
                                 <button className="btn btn-danger" onClick={cancel} style={{ marginLeft: "10px" }}>Cancelar</button>
                             </form>
                         </div>
