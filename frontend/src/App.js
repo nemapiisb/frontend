@@ -21,15 +21,15 @@ import CreateAdComponent from "./components/CreateAdComponent";
 import ShowAdComponent from "./components/ShowAdComponent";
 import ListAdComponentUSER from "./components/ListAdComponentUSER";
 import CreateAdComponentUSER from "./components/CreateAdComponentUSER";
-import ListUserComponent from "./components/ListUserComponent";
-import CreateUserComponent from "./components/CreateUserComponent";
-import showUserComponent from "./components/ShowUserComponent";
-import ShowUserComponent from "./components/ShowUserComponent";
+import ListUserComponent from "./components/CRUDusuarios/ListUserComponent";
+import CreateUserComponent from "./components/CRUDusuarios/CreateUserComponent";
+import showUserComponent from "./components/CRUDusuarios/ShowUserComponent";
+import ShowUserComponent from "./components/CRUDusuarios/ShowUserComponent";
 
 //import comunicados_gestoria
-import ListAdComponentComunicados from "./components/comunicados_gestoria/ListAdComponent-comunicados_gestoria";
-import CreateAdComponentComunicados from "./components/comunicados_gestoria/CreateAdComponent-comunicados_gestoria";
-import ListAdComponentComunicadosUSER from "./components/comunicados_gestoria/ListAdComponent-comunicados_gestoriaUSER";
+import ListAdComponentComunicados from "./components/comunicados_administrador/ListAdComponent-comunicados_administrador";
+import CreateAdComponentComunicados from "./components/comunicados_administrador/CreateAdComponent-comunicados_administrador";
+import ListAdComponentComunicadosUSER from "./components/comunicados_administrador/ListAdComponent-comunicados_administradorUSER";
 
 //import actas_reunion
 import ListAdComponentActas from "./components/actas_reunion/ListAdComponent-actas_reunion";

@@ -76,7 +76,7 @@ export default function ListAdComponent() {
       //const { currentUser, showModeratorBoard, showAdminUpdateAd } = this.state;
       <>
         <div>
-          <h2 className="text-center">Listado de Comunicados Gestoría:</h2>
+          <h2 className="text-center">Listado de Comunicados Administrador:</h2>
           <br></br>
           <div className="row">
             <table className="table table-striped table-bordered">

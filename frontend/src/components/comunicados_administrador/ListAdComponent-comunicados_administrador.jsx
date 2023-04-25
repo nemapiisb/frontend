@@ -76,7 +76,7 @@ export default function ListAdComponent() {
       //const { currentUser, showModeratorBoard, showAdminUpdateAd } = this.state;
       <>
         <div>
-          <h2 className="text-center">Listado de Comunicados Gestoría:</h2>
+          <h2 className="text-center">Listado de Comunicados Administrador:</h2>
           <div className="row">
             <button className="btn btn-primary" onClick={addAd}> Añadir Comunicado </button>
           </div>

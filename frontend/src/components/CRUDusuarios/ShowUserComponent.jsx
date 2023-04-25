@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import AdService from "../services/AdService";
-import AuthService from "../services/auth.service";
-import EventBus from "../common/EventBus";
+import AdService from "../../services/AdService";
+import AuthService from "../../services/auth.service";
+import EventBus from "../../common/EventBus";
 import {useParams} from "react-router-dom";
 
 const ShowAdComponent = (props) => {

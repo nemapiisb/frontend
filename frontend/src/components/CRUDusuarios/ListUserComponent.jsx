@@ -1,10 +1,10 @@
 import React, {Component, useCallback, useEffect, useState} from 'react'
-import AdService from "../services/AdService";
+import AdService from "../../services/AdService";
 import {Link, useNavigate} from "react-router-dom";
-import AuthService from "../services/auth.service";
-import EventBus from "../common/EventBus";
-import VecinoService from "../services/VecinoService";
-import UserService from "../services/user.service";
+import AuthService from "../../services/auth.service";
+import EventBus from "../../common/EventBus";
+import VecinoService from "../../services/VecinoService";
+import UserService from "../../services/user.service";
 
 
 export default function ListUserComponent(){

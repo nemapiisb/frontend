@@ -3,12 +3,13 @@ import { useNavigate, useParams } from 'react-router-dom';
 import AdService from '../../services/AdService';
 import AuthService from "../../services/auth.service";
 import EventBus from "../../common/EventBus";
+import VecinoService from "../../services/VecinoService";
 
 const CreateAdComponent = ({ history, match }) => {
     const { id } = useParams();
     const [contenido, setContenido] = useState('');
     const [fecha, setFecha] = useState('');
-    const [categoria, setCategoria] = useState('COMUNICADO');
+    const [categoria, setCategoria] = useState('');
     const [currentUser, setCurrentUser] = useState(null);
     const [showModeratorBoard, setShowModeratorBoard] = useState(false);
     const [showAdminUpdateAd, setShowAdminUpdateAd] = useState(false);
@@ -22,7 +23,7 @@ const CreateAdComponent = ({ history, match }) => {
                 let anuncio = res.data;
                 setContenido(anuncio.contenido);
                 setFecha(anuncio.fecha);
-                //setCategoria(anuncio.categoria);
+                setCategoria(anuncio.categoria);
             });
         }
 
@@ -47,12 +48,12 @@ const CreateAdComponent = ({ history, match }) => {
         if (id === '_add') {
             AdService.createAd(anuncio).then(res => {
                 //history.push('/anuncios');
-                navigate('/comunicadosGestoria');
+                navigate('/anuncios');
             });
         } else {
             AdService.updateAd(anuncio, id).then(res => {
                 //history.push('/anuncios');
-                navigate('/comunicadosGestoria');
+                navigate('/anuncios');
             });
         }
     }
@@ -65,20 +66,20 @@ const CreateAdComponent = ({ history, match }) => {
         setFecha(event.target.value);
     }
 
-    /*const changeCategoriaHandler = (event) => {
+    const changeCategoriaHandler = (event) => {
         setCategoria(event.target.value);
-    }*/
+    }
 
     const cancel = () => {
         //history.push('/anuncios');
-        navigate('/comunicadosGestoria');
+        navigate('/anuncios');
     }
 
     const getTitle = () => {
         if (id === '_add') {
-            return <h3 className="text-center">Añadir Comunicado Gestoría</h3>
+            return <h3 className="text-center">Añadir anuncio</h3>
         } else {
-            return <h3 className="text-center">Modificar Comunicado Gestoría</h3>
+            return <h3 className="text-center">Modificar anuncio</h3>
         }
     }
 
@@ -108,7 +109,14 @@ const CreateAdComponent = ({ history, match }) => {
                                            value={fecha} onChange={changeFechaHandler} />
                                 </div>
                                 <div className="form-group">
-                                    <label> Categoría: {categoria}</label>
+                                    <label> Categoría: </label>
+                                    <select name="categoria" className="form-control"
+                                            value={categoria} onChange={changeCategoriaHandler}>
+                                        <option value="SELECCIONA" >Selecciona una opcion</option>
+                                        <option value="COMUNICADO">Comunicado</option>
+                                        <option value="MANTENIMIENTO">Mantenimiento</option>
+                                        <option value="CONVOCATORIA">Convocatoria</option>
+                                    </select>
                                 </div>
 
                                 <button className="btn btn-success" onClick={saveOrUpdateAd}>Guardar</button>
