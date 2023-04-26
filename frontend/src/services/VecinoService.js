@@ -12,6 +12,11 @@ class VecinoService {
         return axios.post(USER_API_BASE_URL, vecino);
     }
 
+
+    crearAdmin(admin){
+        return axios.post(USER_API_BASE_URL + '/admin',  admin);
+    }
+
     getVecinoById(vecinoId){
         return axios.get(USER_API_BASE_URL + '/' + vecinoId);
     }

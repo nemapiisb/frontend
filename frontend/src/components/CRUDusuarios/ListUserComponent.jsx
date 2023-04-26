@@ -22,6 +22,12 @@ export default function ListUserComponent(){
       },
       [], // Tells React to memoize regardless of arguments.
   );
+  const addAdmin = useCallback(
+      () => {
+        navigate('/add-us/_admin');
+      },
+      [], // Tells React to memoize regardless of arguments.
+  );
 
   const editUs = useCallback(
       (id) => {
@@ -79,9 +85,11 @@ export default function ListUserComponent(){
       <>
         <div>
           <h2 className="text-center">Listado de Usuarios:</h2>
-          <div className = "row">
-            <button className="btn btn-primary" onClick={addUs}> Añadir Usuario </button>
-          </div>
+
+            <div className="d-flex justify-content-between">
+              <button className="btn btn-primary" onClick={addUs}>Añadir Usuario</button>
+              <button className="btn btn-danger" onClick={addAdmin}>Añadir Admin</button>
+            </div>
           <br></br>
           <div className = "row">
             <table className = "table table-striped table-bordered">
@@ -90,9 +98,7 @@ export default function ListUserComponent(){
                 <th> ID </th>
                 <th> Nombre </th>
                 <th> Email </th>
-                <th> Password</th>
                 <th> Roles</th>
-                <th> ID´s del rol</th>
                 <th> Acciones</th>
               </tr>
               </thead>
@@ -103,9 +109,7 @@ export default function ListUserComponent(){
                       <td>{usuario.id}</td>
                       <td>{usuario.username}</td>
                       <td>{usuario.email}</td>
-                      <td>{usuario.password}</td>
                       <td>{usuario.roles[0]?.name ?? 'N/A'}<br/>{usuario.roles[1]?.name ?? 'N/A'}<br/>{usuario.roles[2]?.name ?? 'N/A'}</td>
-                      <td>{usuario.roles[0]?.id ?? 'N/A'}<br/>{usuario.roles[1]?.id ?? 'N/A'}<br/>{usuario.roles[2]?.id ?? 'N/A'}</td>
                       <td>
                         <button className="mi-botón" onClick={() => editUs(usuario.id)} className="btn btn-info">Modificar </button>
                         <button className="mi-botón" onClick={() => deleteUs(usuario.id)} className="btn btn-danger">Borrar </button>

@@ -11,6 +11,7 @@ const CreateAdComponent = ({ history, match }) => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    //const [roles, setRoles] = useState('');
     const [currentUser, setCurrentUser] = useState(null);
     const [showModeratorBoard, setShowModeratorBoard] = useState(false);
     const [showAdminUpdateAd, setShowAdminUpdateAd] = useState(false);
@@ -18,6 +19,8 @@ const CreateAdComponent = ({ history, match }) => {
 
     useEffect(() => {
         if (id === '_add') {
+            return;
+        } else if (id === '_admin') {
             return;
         } else {
             VecinoService.getVecinoById(id).then((res) => {
@@ -51,7 +54,13 @@ const CreateAdComponent = ({ history, match }) => {
                 //history.push('/anuncios');
                 navigate('/listadoUsers');
             });
-        } else {
+        } else if (id === '_admin') {
+            vecinoService.crearAdmin(usuario).then(res => {
+                //history.push('/anuncios');
+                navigate('/listadoUsers');
+            });
+        }
+        else {
             vecinoService.updateVecino(usuario, id).then(res => {
                 //history.push('/anuncios');
                 navigate('/listadoUsers');
@@ -79,6 +88,8 @@ const CreateAdComponent = ({ history, match }) => {
     const getTitle = () => {
         if (id === '_add') {
             return <h3 className="text-center">Añadir Usuario</h3>
+        } else if (id === '_admin') {
+            return <h3 className="text-center">Añadir Admin</h3>
         } else {
             return <h3 className="text-center">Modificar Usuario</h3>
         }

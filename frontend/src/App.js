@@ -222,13 +222,6 @@ class App extends Component {
                             </li>
                         )}
 
-                        {showAdminBoard  && (
-                            <li className="nav-item">
-                                <Link to={"/anuncios"} className="nav-link">
-                                    User Board
-                                </Link>
-                            </li>
-                        )}
 
                     </div>
 
