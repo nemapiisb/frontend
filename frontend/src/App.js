@@ -147,14 +147,14 @@ class App extends Component {
                         {showAdminBoard && (
                             <li className="nav-item">
                                 <Link to={"/comunicadosGestoria"} className="nav-link">
-                                    Comunicados Gestoría
+                                    Comunicados Administrador
                                 </Link>
                             </li>
                         )}
                         {showVecinoBoard && (
                             <li className="nav-item">
                                 <Link to={"/comunicadosGestoriaUSER"} className="nav-link">
-                                    Comunicados Gestoría
+                                    Comunicados Administrador
                                 </Link>
                             </li>
                         )}
