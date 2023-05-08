@@ -76,9 +76,9 @@ const CreateAdComponent = ({ history, match }) => {
 
     const getTitle = () => {
         if (id === '_add') {
-            return <h3 className="text-center">Añadir anuncio</h3>
+            return <h3 className="text-center" data-test="add-btn-test">Añadir anuncio</h3>
         } else {
-            return <h3 className="text-center">Modificar anuncio</h3>
+            return <h3 className="text-center" data-test="modify-btn-test">Modificar anuncio</h3>
         }
     }
 
@@ -99,17 +99,17 @@ const CreateAdComponent = ({ history, match }) => {
                             <form>
                                 <div className="form-group">
                                     <label> Contenido: </label>
-                                    <input placeholder="Contenido" name="contenido" className="form-control"
+                                    <input placeholder="Contenido" name="contenido" className="form-control" data-test="content-test"
                                            value={contenido} onChange={changeContenidoHandler} />
                                 </div>
                                 <div className="form-group">
                                     <label> Fecha: </label>
-                                    <input placeholder="fecha" name="fecha" className="form-control"
+                                    <input data-test="date-test" placeholder="fecha" name="fecha" className="form-control" data-test="date-test"
                                            value={fecha} onChange={changeFechaHandler} />
                                 </div>
                                 <div className="form-group">
                                     <label> Categoría: </label>
-                                    <select name="categoria" className="form-control"
+                                    <select name="categoria" className="form-control" data-test="category-pickup-test"
                                             value={categoria} onChange={changeCategoriaHandler}>
                                         <option value="SELECCIONA" >Selecciona una opcion</option>
                                         <option value="COMUNICADO">Comunicado</option>
@@ -120,8 +120,8 @@ const CreateAdComponent = ({ history, match }) => {
                                     </select>
                                 </div>
 
-                                <button className="btn btn-success" onClick={saveOrUpdateAd}>Guardar</button>
-                                <button className="btn btn-danger" onClick={cancel} style={{ marginLeft: "10px" }}>Cancelar</button>
+                                <button className="btn btn-success" data-test="save-btn-test" onClick={saveOrUpdateAd}>Guardar</button>
+                                <button className="btn btn-danger" data-test="cancel-btn-test" onClick={cancel} style={{ marginLeft: "10px" }}>Cancelar</button>
                             </form>
                         </div>
                     </div>

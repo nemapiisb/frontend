@@ -112,22 +112,22 @@ const CreateAdComponent = ({ history, match }) => {
                             <form>
                                 <div className="form-group">
                                     <label> Username: </label>
-                                    <input placeholder="Nombre de Usuario" name="username" className="form-control"
+                                    <input placeholder="Nombre de Usuario" name="username" className="form-control" data-test="username-test"
                                            value={username} onChange={changeUsernameHandler} />
                                 </div>
                                 <div className="form-group">
                                     <label> Email: </label>
-                                    <input placeholder="email" name="email" className="form-control"
+                                    <input placeholder="email" name="email" className="form-control" data-test="email-test"
                                            value={email} onChange={changeEmailHandler} />
                                 </div>
                                 <div className="form-group">
                                     <label> Contraseña: </label>
-                                    <input name="password" className="form-control"
+                                    <input name="password" className="form-control" data-test="pass-test"
                                             value={password} onChange={changePasswordHandler} />
                                 </div>
 
-                                <button className="btn btn-success" onClick={saveOrUpdateUs}>Guardar</button>
-                                <button className="btn btn-danger" onClick={cancel} style={{ marginLeft: "10px" }}>Cancelar</button>
+                                <button className="btn btn-success" data-test="save-btn-test" onClick={saveOrUpdateUs}>Guardar</button>
+                                <button className="btn btn-danger" data-test="cancel-btn-test" onClick={cancel} style={{ marginLeft: "10px" }}>Cancelar</button>
                             </form>
                         </div>
                     </div>

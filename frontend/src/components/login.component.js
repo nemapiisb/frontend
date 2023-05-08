@@ -103,6 +103,7 @@ class Login extends Component {
                 type="text"
                 className="form-control"
                 name="username"
+                data-test="username-test"
                 value={this.state.username}
                 onChange={this.onChangeUsername}
                 validations={[required]}
@@ -115,6 +116,7 @@ class Login extends Component {
                 type="password"
                 className="form-control"
                 name="password"
+                data-test="pass-test"
                 value={this.state.password}
                 onChange={this.onChangePassword}
                 validations={[required]}
@@ -124,6 +126,7 @@ class Login extends Component {
             <div className="form-group">
               <button
                 className="btn btn-primary btn-block"
+                data-test="login-btn-test"
                 disabled={this.state.loading}
               >
                 {this.state.loading && (

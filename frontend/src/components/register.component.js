@@ -144,6 +144,7 @@ export default class Register extends Component {
                     type="text"
                     className="form-control"
                     name="username"
+                    data-test="username-test"
                     value={this.state.username}
                     onChange={this.onChangeUsername}
                     validations={[required, vusername]}
@@ -156,6 +157,7 @@ export default class Register extends Component {
                     type="text"
                     className="form-control"
                     name="email"
+                    data-test="email-test"
                     value={this.state.email}
                     onChange={this.onChangeEmail}
                     validations={[required, email]}
@@ -168,6 +170,7 @@ export default class Register extends Component {
                     type="password"
                     className="form-control"
                     name="password"
+                    data-test="pass-test"
                     value={this.state.password}
                     onChange={this.onChangePassword}
                     validations={[required, vpassword]}
@@ -195,7 +198,8 @@ export default class Register extends Component {
               </div>
             )}
             <CheckButton
-              style={{ display: "none" }}
+                data-test="signup-btn-test"
+                style={{ display: "none" }}
               ref={c => {
                 this.checkBtn = c;
               }}

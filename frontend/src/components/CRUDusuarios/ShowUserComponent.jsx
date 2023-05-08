@@ -45,15 +45,15 @@ const ShowAdComponent = (props) => {
                     <div className="row">
                         <label> Id del Usuario: </label>
                     </div>
-                    <div><p>{usuario.id}</p></div>
+                    <div><p data-test="id-test">{usuario.id}</p></div>
                     <div className="row">
                         <label> Nombre del Usuario:<br /> </label>
                     </div>
-                    <div> <p> {usuario.username}</p></div>
+                    <div> <p data-test="username-test"> {usuario.username}</p></div>
                     <div className="row">
                         <label> Email:<br /> </label>
                     </div>
-                    <div> <p> {usuario.email}</p></div>
+                    <div> <p data-test="mail-test"> {usuario.email}</p></div>
                 </div>
             </div>
         </div>

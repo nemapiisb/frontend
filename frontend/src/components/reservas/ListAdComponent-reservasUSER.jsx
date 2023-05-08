@@ -96,12 +96,12 @@ export default function ListAdComponent() {
               {
                 state.anuncios.map(anuncio => (
                     <tr key={anuncio.id} >
-                      <td> {anuncio.id} </td>
-                      <td> {anuncio.categoria} </td>
-                      <td> {anuncio.contenido}</td>
-                      <td> {anuncio.fecha}</td>
+                      <td data-test="id-test"> {anuncio.id} </td>
+                      <td data-test="category-test"> {anuncio.categoria} </td>
+                      <td data-test="content-test"> {anuncio.contenido}</td>
+                      <td data-test="date-test"> {anuncio.fecha}</td>
                       <td>
-                        <button className="mi-botón" onClick={ () => getOne(anuncio.id)} className="btn btn-info">Ver detalles </button>
+                        <button className="mi-botón" data-test="detail-btn-test" onClick={ () => getOne(anuncio.id)} className="btn btn-info">Ver detalles </button>
                       </td>
                     </tr>
                 ))

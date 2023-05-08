@@ -87,8 +87,8 @@ export default function ListUserComponent(){
           <h2 className="text-center">Listado de Usuarios:</h2>
 
             <div className="d-flex justify-content-between">
-              <button className="btn btn-primary" onClick={addUs}>Añadir Usuario</button>
-              <button className="btn btn-danger" onClick={addAdmin}>Añadir Admin</button>
+              <button className="btn btn-primary" data-test="adduser-btn-test" onClick={addUs}>Añadir Usuario</button>
+              <button className="btn btn-danger" data-test="addadmin-btn-test" onClick={addAdmin}>Añadir Admin</button>
             </div>
           <br></br>
           <div className = "row">
@@ -106,14 +106,14 @@ export default function ListUserComponent(){
               {
                 state.usuarios.map(usuario => (
                     <tr key={usuario.id}>
-                      <td>{usuario.id}</td>
-                      <td>{usuario.username}</td>
-                      <td>{usuario.email}</td>
-                      <td>{usuario.roles[0]?.name ?? 'N/A'}<br/>{usuario.roles[1]?.name ?? 'N/A'}<br/>{usuario.roles[2]?.name ?? 'N/A'}</td>
+                      <td data-test="id-test">{usuario.id}</td>
+                      <td data-test="username-test">{usuario.username}</td>
+                      <td data-test="email-test">{usuario.email}</td>
+                      <td data-test="role-test">{usuario.roles[0]?.name ?? 'N/A'}<br/>{usuario.roles[1]?.name ?? 'N/A'}<br/>{usuario.roles[2]?.name ?? 'N/A'}</td>
                       <td>
-                        <button className="mi-botón" onClick={() => editUs(usuario.id)} className="btn btn-info">Modificar </button>
-                        <button className="mi-botón" onClick={() => deleteUs(usuario.id)} className="btn btn-danger">Borrar </button>
-                        <button className="mi-botón" onClick={() => getOne(usuario.id)} className="btn btn-info">Ver detalles </button>
+                        <button className="mi-botón" data-test="modify-btn-test" onClick={() => editUs(usuario.id)} className="btn btn-info">Modificar </button>
+                        <button className="mi-botón" data-test="delete-btn-test" onClick={() => deleteUs(usuario.id)} className="btn btn-danger">Borrar </button>
+                        <button className="mi-botón" data-test="detail-btn-test"onClick={() => getOne(usuario.id)} className="btn btn-info">Ver detalles </button>
                       </td>
                     </tr>
                 ))

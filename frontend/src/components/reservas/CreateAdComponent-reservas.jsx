@@ -98,20 +98,20 @@ const CreateAdComponent = ({ history, match }) => {
                             <form>
                                 <div className="form-group">
                                     <label> Contenido: </label>
-                                    <input placeholder="Contenido" name="contenido" className="form-control"
+                                    <input placeholder="Contenido" name="contenido" className="form-control" data-test="content-test"
                                            value={contenido} onChange={changeContenidoHandler} />
                                 </div>
                                 <div className="form-group">
                                     <label> Fecha: </label>
-                                    <input placeholder="fecha" name="fecha" className="form-control"
+                                    <input placeholder="fecha" name="fecha" className="form-control" data-test="date-test"
                                            value={fecha} onChange={changeFechaHandler} />
                                 </div>
-                                <div className="form-group">
+                                <div className="form-group" data-test="category-test">
                                     <label> Categoría: {categoria}</label>
                                 </div>
 
-                                <button className="btn btn-success" onClick={saveOrUpdateAd}>Guardar</button>
-                                <button className="btn btn-danger" onClick={cancel} style={{ marginLeft: "10px" }}>Cancelar</button>
+                                <button className="btn btn-success" data-test="save-btn-test" onClick={saveOrUpdateAd}>Guardar</button>
+                                <button className="btn btn-danger" data-test="cancel-btn-test" onClick={cancel} style={{ marginLeft: "10px" }}>Cancelar</button>
                             </form>
                         </div>
                     </div>

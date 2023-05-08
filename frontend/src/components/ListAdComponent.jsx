@@ -94,7 +94,7 @@ export default function ListAdComponent(){
               <tbody>
               {
                 state.anuncios.map(anuncio =>(
-                    <tr key={anuncio.id} className={
+                    <tr key={anuncio.id} data-test="anuncio-tabla-test" className={
                       anuncio.categoria === 'ANUNCIO' ? 'table-color1' :
                           (anuncio.categoria === 'ACTA' ? 'table-color2' :
                               (anuncio.categoria === 'COMUNICADO' ? 'table-color3' :
@@ -107,9 +107,9 @@ export default function ListAdComponent(){
                       <td> {anuncio.contenido}</td>
                       <td> {anuncio.fecha}</td>
                       <td>
-                        <button className="mi-botón" onClick={ () => editAd(anuncio.id)} className="btn btn-info">Modificar </button>
-                        <button className="mi-botón" onClick={ () => deleteAd(anuncio.id)} className="btn btn-danger">Borrar </button>
-                        <button className="mi-botón" onClick={ () => getOne(anuncio.id)} className="btn btn-info">Ver detalles </button>
+                        <button className="mi-botón" onClick={ () => editAd(anuncio.id)} className="btn btn-info" data-test="edit-btn-test">Modificar </button>
+                        <button className="mi-botón" onClick={ () => deleteAd(anuncio.id)} className="btn btn-danger" data-test="delete-btn-test">Borrar </button>
+                        <button className="mi-botón" onClick={ () => getOne(anuncio.id)} className="btn btn-info" data-test="detail-btn-test">Ver detalles </button>
                       </td>
                     </tr>
                 ))

@@ -32,10 +32,9 @@ export default class Home extends Component {
   render() {
     return (
       <div className="container">
-        <header className="jumbotron">
-          <h3>{this.state.content}</h3>
+        <header className="jumbotron" data-test="home-header-test">
+            <h1>Bienvenidos a Neighbors Manager [NEMA]</h1>
         </header>
-        <h1>Bienvenidos a Neighbors Manager</h1>
         <p>En esta pagina estaria interesante informar de la utilizacion de la web y de que comunidad de vecinos pertenece</p>
       </div>
     );

@@ -40,20 +40,20 @@ const ShowAdComponent = (props) => {
         <div>
             <br></br>
             <div className="card col-md-6 offset-md-3">
-                <h3 className="text-center"> Ver detalles del Anuncio</h3>
+                <h3 className="text-center" data-test="detail-h3-test"> Ver detalles del Anuncio</h3>
                 <div className="card-body">
                     <div className="row">
                         <label> Contenido del Anuncio: </label>
                     </div>
-                    <div><p>{anuncio.contenido}</p></div>
+                    <div><p data-test="content-test">{anuncio.contenido}</p></div>
                     <div className="row">
                         <label> Fecha del Anuncio:<br /> </label>
                     </div>
-                    <div> <p> {anuncio.fecha}</p></div>
+                    <div> <p data-test="date-test"> {anuncio.fecha}</p></div>
                     <div className="row">
                         <label> Categoría del Anuncio:<br /> </label>
                     </div>
-                    <div> <p> {anuncio.categoria}</p></div>
+                    <div> <p data-test="category-test"> {anuncio.categoria}</p></div>
                 </div>
             </div>
         </div>
