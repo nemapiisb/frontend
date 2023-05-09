@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate, useParams } from 'react-router-dom';
 import AdService from '../../services/AdService';
 import AuthService from "../../services/auth.service";
@@ -8,6 +10,7 @@ const CreateAdComponent = ({ history, match }) => {
     const { id } = useParams();
     const [contenido, setContenido] = useState('');
     const [fecha, setFecha] = useState('');
+    const [fechaReserva, setFechaReserva] = useState('');
     const [categoria, setCategoria] = useState('RESERVA');
     const [userId, setUserId] = useState('');
     const [currentUser, setCurrentUser] = useState(null);
@@ -24,6 +27,7 @@ const CreateAdComponent = ({ history, match }) => {
                 setContenido(anuncio.contenido);
                 setFecha(anuncio.fecha);
                 setUserId(anuncio.userId);
+                setFechaReserva(anuncio.fechaReserva);
                 //setCategoria(anuncio.categoria);
             });
         }
@@ -43,7 +47,7 @@ const CreateAdComponent = ({ history, match }) => {
 
     const saveOrUpdateAd = (e) => {
         e.preventDefault();
-        let anuncio = { contenido: contenido, fecha: fecha, categoria: categoria, userId: userId }; // También incluye la categoría en el objeto
+        let anuncio = { contenido: contenido, fecha: fecha, categoria: categoria, userId: userId, fechaReserva: fechaReserva }; // También incluye la categoría en el objeto
         console.log('anuncio => ' + JSON.stringify(anuncio));
 
         if (id === '_add') {
@@ -74,7 +78,17 @@ const CreateAdComponent = ({ history, match }) => {
     const changeFechaHandler = (event) => {
         setFecha(event.target.value);
     }
-
+    const changeFechaReservaHandler = (fechaReserva) => {
+        setFechaReserva(fechaReserva);
+        const user = AuthService.getCurrentUser();
+        if (user) {
+            setCurrentUser(user);
+        }
+        if (currentUser){
+            console.log(currentUser.id)
+            setUserId(currentUser.id);
+        }
+    };
     /*const changeCategoriaHandler = (event) => {
         setCategoria(event.target.value);
     }*/
@@ -109,13 +123,29 @@ const CreateAdComponent = ({ history, match }) => {
                             <form>
                                 <div className="form-group">
                                     <label> Contenido: </label>
-                                    <input placeholder="Contenido" name="contenido" className="form-control" data-test="content-test"
-                                           value={contenido} onChange={changeContenidoHandler} />
+                                    <select name="contenido" className="form-control" data-test="contenido-pickup-test"
+                                            value={contenido} onChange={changeContenidoHandler}>
+                                        <option value="SELECCIONA" >Selecciona una opcion</option>
+                                        <option value="PistaPadelA">Pista Padel A</option>
+                                        <option value="PistaPadelB">Pista Padel B</option>
+                                        <option value="PistaTenis">Pista Tenis</option>
+                                        <option value="SalaReuniones1">Sala Reuniones 1</option>
+                                        <option value="SalaReuniones2">Sala Reuniones 2</option>
+                                        <option value="PistaFutbolSala">Pista Futbol Sala</option>
+                                    </select>
                                 </div>
                                 <div className="form-group">
-                                    <label> Fecha: </label>
-                                    <input placeholder="fecha" name="fecha" className="form-control" data-test="date-test"
-                                           value={fecha} onChange={changeFechaHandler} />
+                                    <label> Fecha Reserva: </label>
+                                    <DatePicker
+                                        selected={fechaReserva}
+                                        onChange={changeFechaReservaHandler}
+                                        showTimeSelect
+                                        timeFormat="HH:mm"
+                                        timeIntervals={15}
+                                        dateFormat="yyyy-MM-dd HH:mm"
+                                        className="form-control"
+                                        placeholderText="Seleccione fecha y hora"
+                                    />
                                 </div>
                                 <div className="form-group" data-test="category-test">
                                     <label> Categoría: {categoria}</label>

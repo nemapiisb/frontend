@@ -5,6 +5,12 @@ import AuthService from "../../services/auth.service";
 import EventBus from "../../common/EventBus";
 import VecinoService from "../../services/VecinoService";
 
+function toLocaleDateString(fecha){
+  const fechaFormatted = fecha ? new Date(fecha).toLocaleString() : '';
+  return fechaFormatted;
+}
+
+
 export default function ListAdComponent() {
 
   const [count, setCount] = useState(0);
@@ -44,6 +50,7 @@ export default function ListAdComponent() {
       },
       [],
   );
+
 
 
   useEffect(() => {
@@ -92,7 +99,8 @@ export default function ListAdComponent() {
                 <th> ID </th>
                 <th> Categoría </th>
                 <th> Contenido de la Reserva</th>
-                <th> Fecha</th>
+                <th> Fecha Creación</th>
+                <th> Fecha Reserva</th>
                 <th> Usuario </th>
                 <th> Acciones</th>
               </tr>
@@ -105,6 +113,7 @@ export default function ListAdComponent() {
                       <td data-test="category-test"> {anuncio.categoria} </td>
                       <td data-test="content-test"> {anuncio.contenido}</td>
                       <td data-test="date-test"> {anuncio.fecha}</td>
+                      <td data-test="date-test"> {anuncio.fechaReserva ? toLocaleDateString(anuncio.fechaReserva) : ''}</td>
                       <td>
                         {anuncio.userId && (
                             <RenderUser userId={anuncio.userId} />
@@ -153,5 +162,6 @@ export default function ListAdComponent() {
 
     return <td>{user}</td>
   }
+
 
 }
