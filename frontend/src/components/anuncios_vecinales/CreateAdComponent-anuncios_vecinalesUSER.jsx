@@ -15,7 +15,6 @@ const CreateAdComponent = ({ history, match }) => {
     const [showAdminUpdateAd, setShowAdminUpdateAd] = useState(false);
     const navigate = useNavigate();
 
-
     useEffect(() => {
         if (id === '_add') {
             return;
@@ -28,8 +27,6 @@ const CreateAdComponent = ({ history, match }) => {
                 //setCategoria(anuncio.categoria);
             });
         }
-
-
 
         const user = AuthService.getCurrentUser();
         if (user) {
@@ -52,12 +49,12 @@ const CreateAdComponent = ({ history, match }) => {
         if (id === '_add') {
             AdService.createAd(anuncio).then(res => {
                 //history.push('/anuncios');
-                navigate('/anunciosVecinales');
+                navigate('/anunciosVecinalesUSER');
             });
         } else {
             AdService.updateAd(anuncio, id).then(res => {
                 //history.push('/anuncios');
-                navigate('/anunciosVecinales');
+                navigate('/anunciosVecinalesUSER');
             });
         }
     }
@@ -72,7 +69,6 @@ const CreateAdComponent = ({ history, match }) => {
             console.log(currentUser.id)
             setUserId(currentUser.id);
         }
-
     }
 
     const changeFechaHandler = (event) => {
@@ -85,7 +81,7 @@ const CreateAdComponent = ({ history, match }) => {
 
     const cancel = () => {
         //history.push('/anuncios');
-        navigate('/anunciosVecinales');
+        navigate('/anunciosVecinalesUSER');
     }
 
     const getTitle = () => {
@@ -122,7 +118,7 @@ const CreateAdComponent = ({ history, match }) => {
                                            value={fecha} onChange={changeFechaHandler} />
                                 </div>
                                 <div className="form-group" data-test="category-test">
-                                    <label> Categoría: {categoria} </label>
+                                    <label> Categoría: {categoria}</label>
                                 </div>
 
                                 <button className="btn btn-success" data-test="save-btn-test"  onClick={saveOrUpdateAd}>Guardar</button>

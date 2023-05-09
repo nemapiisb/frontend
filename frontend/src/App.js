@@ -40,6 +40,7 @@ import ListAdComponentActasUSER from "./components/actas_reunion/ListAdComponent
 import ListAdComponentAnuncios from "./components/anuncios_vecinales/ListAdComponent-anuncios_vecinales";
 import CreateAdComponentAnuncios from "./components/anuncios_vecinales/CreateAdComponent-anuncios_vecinales";
 import ListAdComponentAnunciosUSER from "./components/anuncios_vecinales/ListAdComponent-anuncios_vecinalesUSER";
+import CreateAdComponentAnunciosUSER from "./components/anuncios_vecinales/CreateAdComponent-anuncios_vecinalesUSER";
 
 //import incidencias
 import ListAdComponentIncidencias from "./components/incidencias/ListAdComponent-incidencias";
@@ -287,6 +288,7 @@ class App extends Component {
                         <Route path="/add-adcomunicado/:id" element={<CreateAdComponentComunicados />} />
                         <Route path="/add-adacta/:id" element={<CreateAdComponentActas />} />
                         <Route path="/add-adanuncio/:id" element={<CreateAdComponentAnuncios />} />
+                        <Route path="/add-adanuncioUSER/:id" element={<CreateAdComponentAnunciosUSER />} />
                         <Route path="/add-adincidencia/:id" element={<CreateAdComponentIncidencias />} />
                         <Route path="/add-adreserva/:id" element={<CreateAdComponentReservas />} />
                         <Route path="/add-adUSER/:id" element={<CreateAdComponentUSER />} />

@@ -3,28 +3,33 @@ import AdService from "../../services/AdService";
 import { Link, useNavigate } from "react-router-dom";
 import AuthService from "../../services/auth.service";
 import EventBus from "../../common/EventBus";
+import VecinoService from "../../services/VecinoService";
 
 
 export default function ListAdComponent() {
 
   const [count, setCount] = useState(0);
+  const [state, setState] = useState({ anuncios: [], currentUser: null, showButon: null });
 
-  const [state, setState] = useState({ anuncios: [] });
+
+  //const [state, setState] = useState({ anuncios: [] });
   const navigate = useNavigate();
 
   const addAd = useCallback(
       () => {
-        navigate('/add-adanuncio/_add');
+        navigate('/add-adanuncioUSER/_add');
       },
       [], // Tells React to memoize regardless of arguments.
   );
 
   const editAd = useCallback(
       (id) => {
-        navigate(`/add-adanuncio/${id}`);
+        navigate(`/add-adanuncioUSER/${id}`);
       },
       [], // Tells React to memoize regardless of arguments.
   );
+
+
 
   const getOne = useCallback(
       (id) => {
@@ -45,7 +50,6 @@ export default function ListAdComponent() {
       [],
   );
 
-
   useEffect(() => {
     AdService.getAll().then((res) => {
       if (res.data == null) {
@@ -57,6 +61,13 @@ export default function ListAdComponent() {
     });
 
     const user = AuthService.getCurrentUser();
+    if (user) {
+      setState(prevState => ({
+        ...prevState,
+        currentUser: user
+      }));
+    }
+
 
     if (user) {
       state.anuncios.map(anuncio => ({
@@ -71,9 +82,8 @@ export default function ListAdComponent() {
       AuthService.logOut(); // Cambiar this.logOut() a AuthService.logOut()
     });
   }, [count]);
-
+//VecinoService.getVecinoById(anuncio.userId)['username']
   return (
-      //const { currentUser, showModeratorBoard, showAdminUpdateAd } = this.state;
       <>
         <div>
           <h2 className="text-center">Listado de Anuncios Vecinales:</h2>
@@ -89,19 +99,36 @@ export default function ListAdComponent() {
                 <th> Categoría </th>
                 <th> Contenido del anuncio</th>
                 <th> Fecha</th>
+                <th> Usuario </th>
                 <th> Acciones</th>
               </tr>
               </thead>
               <tbody>
               {
                 state.anuncios.map(anuncio => (
-                    <tr key={anuncio.id} >
+                    <tr key={anuncio.id}>
                       <td data-test="id-test"> {anuncio.id} </td>
                       <td data-test="category-test"> {anuncio.categoria} </td>
                       <td data-test="content-test"> {anuncio.contenido}</td>
                       <td data-test="date-test"> {anuncio.fecha}</td>
                       <td>
-                        <button className="mi-botón" data-test="detail-btn-test" onClick={ () => getOne(anuncio.id)} className="btn btn-info">Ver detalles </button>
+                        {anuncio.userId && (
+                            <RenderUser userId={anuncio.userId} />
+                        )}
+                      </td>
+                      <td>
+                        {anuncio.userId === AuthService.getCurrentUser().id && (
+                            <>
+                              <button className="mi-botón" data-test="modify-btn-test" onClick={() => editAd(anuncio.id)}
+                                      className="btn btn-info">Modificar
+                              </button>
+                              <button className="mi-botón" data-test="delete-btn-test" onClick={() => deleteAd(anuncio.id)}
+                                      className="btn btn-danger">Borrar
+                              </button>
+                            </>
+                        )}
+                        <button className="mi-botón" data-test="detail-btn-test" onClick={() => getOne(anuncio.id)}
+                                className="btn btn-info">Ver detalles </button>
                       </td>
                     </tr>
                 ))
@@ -111,5 +138,23 @@ export default function ListAdComponent() {
           </div>
         </div>
       </>
-    );
-}
+  );
+
+  function RenderUser(props) {
+    const [user, setUser] = useState(null);
+    const { userId } = props;
+
+    useEffect(() => {
+      async function fetchData() {
+        const response = await VecinoService.getVecinoById(userId);
+        setUser(response.data.username);
+      }
+      fetchData();
+    }, [userId]);
+
+    if (!user) {
+      return <td>Cargando...</td>
+    }
+
+    return <td>{user}</td>
+  }}

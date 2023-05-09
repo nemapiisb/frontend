@@ -8,7 +8,6 @@ import VecinoService from "../../services/VecinoService";
 
 
 export default function ListUserComponent(){
-  // Esto lo voy a usar de base para hacer el CRUD de usuarios, actualmente obviamente no esta bien.
 
   const [count, setCount] = useState(0);
 
