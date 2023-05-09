@@ -117,6 +117,8 @@ export default function ListAdComponent() {
                         )}
                       </td>
                       <td>
+                        <button className="mi-botón" data-test="detail-btn-test" onClick={() => getOne(anuncio.id)}
+                                className="btn btn-info">Ver detalles </button>
                         {anuncio.userId === AuthService.getCurrentUser().id && (
                             <>
                               <button className="mi-botón" data-test="modify-btn-test" onClick={() => editAd(anuncio.id)}
@@ -127,8 +129,7 @@ export default function ListAdComponent() {
                               </button>
                             </>
                         )}
-                        <button className="mi-botón" data-test="detail-btn-test" onClick={() => getOne(anuncio.id)}
-                                className="btn btn-info">Ver detalles </button>
+
                       </td>
                     </tr>
                 ))
