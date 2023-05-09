@@ -82,7 +82,6 @@ export default function ListAdComponent() {
       AuthService.logOut(); // Cambiar this.logOut() a AuthService.logOut()
     });
   }, [count]);
-//VecinoService.getVecinoById(anuncio.userId)['username']
   return (
       <>
         <div>
