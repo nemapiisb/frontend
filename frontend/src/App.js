@@ -51,6 +51,7 @@ import ListAdComponentIncidenciasUSER from "./components/incidencias/ListAdCompo
 import ListAdComponentReservas from "./components/reservas/ListAdComponent-reservas";
 import CreateAdComponentReservas from "./components/reservas/CreateAdComponent-reservas";
 import ListAdComponentReservasUSER from "./components/reservas/ListAdComponent-reservasUSER";
+import CreateAdComponentReservasUSER from "./components/reservas/CreateAdComponent-reservasUSER";
 
 class App extends Component {
     constructor(props) {
@@ -291,6 +292,7 @@ class App extends Component {
                         <Route path="/add-adanuncioUSER/:id" element={<CreateAdComponentAnunciosUSER />} />
                         <Route path="/add-adincidencia/:id" element={<CreateAdComponentIncidencias />} />
                         <Route path="/add-adreserva/:id" element={<CreateAdComponentReservas />} />
+                        <Route path="/add-adreservaUSER/:id" element={<CreateAdComponentReservasUSER />} />
                         <Route path="/add-adUSER/:id" element={<CreateAdComponentUSER />} />
                         <Route path="/edit-ad/:id" element={<CreateAdComponent />} />
                         <Route path="/show-ad/:id" element={<ShowAdComponent />} />

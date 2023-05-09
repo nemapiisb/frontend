@@ -48,12 +48,12 @@ const CreateAdComponent = ({ history, match }) => {
 
         if (id === '_add') {
             AdService.createAd(anuncio).then(res => {
-                navigate('/reservas');
+                navigate('/reservasUSER');
 
             });
         } else {
             AdService.updateAd(anuncio, id).then(res => {
-                navigate('/reservas');
+                navigate('/reservasUSER');
             });
         }
     }
@@ -80,7 +80,7 @@ const CreateAdComponent = ({ history, match }) => {
     }*/
 
     const cancel = () => {
-        navigate('/reservas');
+        navigate('/reservasUSER');
     }
 
     const getTitle = () => {

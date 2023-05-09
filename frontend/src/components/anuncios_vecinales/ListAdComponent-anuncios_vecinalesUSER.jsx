@@ -9,7 +9,7 @@ import VecinoService from "../../services/VecinoService";
 export default function ListAdComponent() {
 
   const [count, setCount] = useState(0);
-  const [state, setState] = useState({ anuncios: [], currentUser: null, showButon: null });
+  const [state, setState] = useState({ anuncios: [], currentUser: null});
 
 
   //const [state, setState] = useState({ anuncios: [] });
@@ -72,9 +72,7 @@ export default function ListAdComponent() {
     if (user) {
       state.anuncios.map(anuncio => ({
         ...anuncio,
-        currentUser: user,
-        showModeratorBoard: user.roles.includes("ROLE_PORTERO"),
-        showAdminUpdateAd: user.roles.includes("ROLE_ADMIN"),
+        currentUser: user
       }));
     }
 

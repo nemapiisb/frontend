@@ -3,25 +3,25 @@ import AdService from "../../services/AdService";
 import { Link, useNavigate } from "react-router-dom";
 import AuthService from "../../services/auth.service";
 import EventBus from "../../common/EventBus";
-
+import VecinoService from "../../services/VecinoService";
 
 export default function ListAdComponent() {
 
   const [count, setCount] = useState(0);
 
-  const [state, setState] = useState({ anuncios: [] });
+  const [state, setState] = useState({ anuncios: [], currentUser: null });
   const navigate = useNavigate();
 
   const addAd = useCallback(
       () => {
-        navigate('/add-adreserva/_add');
+        navigate('/add-adreservaUSER/_add');
       },
       [], // Tells React to memoize regardless of arguments.
   );
 
   const editAd = useCallback(
       (id) => {
-        navigate(`/add-adreserva/${id}`);
+        navigate(`/add-adreservaUSER/${id}`);
       },
       [], // Tells React to memoize regardless of arguments.
   );
@@ -49,7 +49,7 @@ export default function ListAdComponent() {
   useEffect(() => {
     AdService.getAll().then((res) => {
       if (res.data == null) {
-        navigate('/add-adreserva/_add');
+        navigate('/add-adreservaUSER/_add');
       }
       // Filtrar los anuncios por categoría "RESERVA"
       const filteredAnuncios = res.data.filter(anuncio => anuncio.categoria === "RESERVA");
@@ -57,13 +57,17 @@ export default function ListAdComponent() {
     });
 
     const user = AuthService.getCurrentUser();
+    if (user) {
+      setState(prevState => ({
+        ...prevState,
+        currentUser: user
+      }));
+    }
 
     if (user) {
       state.anuncios.map(anuncio => ({
         ...anuncio,
-        currentUser: user,
-        showModeratorBoard: user.roles.includes("ROLE_PORTERO"),
-        showAdminUpdateAd: user.roles.includes("ROLE_ADMIN"),
+        currentUser: user
       }));
     }
 
@@ -89,6 +93,7 @@ export default function ListAdComponent() {
                 <th> Categoría </th>
                 <th> Contenido de la Reserva</th>
                 <th> Fecha</th>
+                <th> Usuario </th>
                 <th> Acciones</th>
               </tr>
               </thead>
@@ -101,7 +106,24 @@ export default function ListAdComponent() {
                       <td data-test="content-test"> {anuncio.contenido}</td>
                       <td data-test="date-test"> {anuncio.fecha}</td>
                       <td>
-                        <button className="mi-botón" data-test="detail-btn-test" onClick={ () => getOne(anuncio.id)} className="btn btn-info">Ver detalles </button>
+                        {anuncio.userId && (
+                            <RenderUser userId={anuncio.userId} />
+                        )}
+                      </td>
+                      <td>
+                        <button className="mi-botón" data-test="detail-btn-test" onClick={() => getOne(anuncio.id)}
+                                className="btn btn-info">Ver detalles </button>
+                        {anuncio.userId === AuthService.getCurrentUser().id && (
+                            <>
+                              <button className="mi-botón" data-test="modify-btn-test" onClick={() => editAd(anuncio.id)}
+                                      className="btn btn-info">Modificar
+                              </button>
+                              <button className="mi-botón" data-test="delete-btn-test" onClick={() => deleteAd(anuncio.id)}
+                                      className="btn btn-danger">Borrar
+                              </button>
+                            </>
+                        )}
+
                       </td>
                     </tr>
                 ))
@@ -112,4 +134,24 @@ export default function ListAdComponent() {
         </div>
       </>
     );
+
+  function RenderUser(props) {
+    const [user, setUser] = useState(null);
+    const { userId } = props;
+
+    useEffect(() => {
+      async function fetchData() {
+        const response = await VecinoService.getVecinoById(userId);
+        setUser(response.data.username);
+      }
+      fetchData();
+    }, [userId]);
+
+    if (!user) {
+      return <td>Cargando...</td>
+    }
+
+    return <td>{user}</td>
+  }
+
 }

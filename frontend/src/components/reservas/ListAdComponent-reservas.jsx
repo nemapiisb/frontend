@@ -3,13 +3,13 @@ import AdService from "../../services/AdService";
 import { Link, useNavigate } from "react-router-dom";
 import AuthService from "../../services/auth.service";
 import EventBus from "../../common/EventBus";
-
+import VecinoService from "../../services/VecinoService";
 
 export default function ListAdComponent() {
 
   const [count, setCount] = useState(0);
 
-  const [state, setState] = useState({ anuncios: [] });
+  const [state, setState] = useState({ anuncios: [], currentUser: null, });
   const navigate = useNavigate();
 
   const addAd = useCallback(
@@ -89,6 +89,7 @@ export default function ListAdComponent() {
                 <th> Categoría </th>
                 <th> Contenido de la Reserva</th>
                 <th> Fecha</th>
+                <th> Usuario</th>
                 <th> Acciones</th>
               </tr>
               </thead>
@@ -100,6 +101,11 @@ export default function ListAdComponent() {
                       <td data-test="category-test"> {anuncio.categoria} </td>
                       <td data-test="content-test"> {anuncio.contenido}</td>
                       <td data-test="date-test"> {anuncio.fecha}</td>
+                      <td>
+                        {anuncio.userId && (
+                            <RenderUser userId={anuncio.userId} />
+                        )}
+                      </td>
                       <td>
                         <button className="mi-botón" data-test="modify-btn-test" onClick={ () => editAd(anuncio.id)} className="btn btn-info">Modificar </button>
                         <button className="mi-botón" data-test="delete-btn-test" onClick={ () => deleteAd(anuncio.id)} className="btn btn-danger">Borrar </button>
@@ -114,4 +120,22 @@ export default function ListAdComponent() {
         </div>
       </>
     );
+  function RenderUser(props) {
+    const [user, setUser] = useState(null);
+    const { userId } = props;
+
+    useEffect(() => {
+      async function fetchData() {
+        const response = await VecinoService.getVecinoById(userId);
+        setUser(response.data.username);
+      }
+      fetchData();
+    }, [userId]);
+
+    if (!user) {
+      return <td>Cargando...</td>
+    }
+
+    return <td>{user}</td>
+  }
 }
