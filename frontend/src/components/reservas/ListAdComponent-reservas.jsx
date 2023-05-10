@@ -114,7 +114,6 @@ export default function ListAdComponent() {
                       </td>
                       <td>
                         <button className="mi-botón" data-test="detail-btn-test" onClick={ () => getOne(anuncio.id)} className="btn btn-info">Ver detalles </button>
-                        <button className="mi-botón" data-test="modify-btn-test" onClick={ () => editAd(anuncio.id)} className="btn btn-info">Modificar </button>
                         <button className="mi-botón" data-test="delete-btn-test" onClick={ () => deleteAd(anuncio.id)} className="btn btn-danger">Borrar </button>
 
                       </td>

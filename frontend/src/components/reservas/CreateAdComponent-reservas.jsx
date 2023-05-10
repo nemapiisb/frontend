@@ -122,7 +122,7 @@ const CreateAdComponent = ({ history, match }) => {
                         <div className="card-body">
                             <form>
                                 <div className="form-group">
-                                    <label> Contenido: </label>
+                                    <label>  A Reservar: </label>
                                     <select name="contenido" className="form-control" data-test="contenido-pickup-test"
                                             value={contenido} onChange={changeContenidoHandler}>
                                         <option value="SELECCIONA" >Selecciona una opcion</option>
