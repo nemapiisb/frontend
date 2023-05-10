@@ -87,7 +87,7 @@ export default function ListAdComponent() {
       //const { currentUser, showModeratorBoard, showAdminUpdateAd } = this.state;
       <>
         <div>
-          <h2 className="text-center">Listado de Reservas:</h2>
+          <h2 className="text-center">Listado de Tus Reservas:</h2>
           <div className="row">
             <button className="btn btn-primary" onClick={addAd}> Añadir Reserva </button>
           </div>
@@ -108,6 +108,7 @@ export default function ListAdComponent() {
               <tbody>
               {
                 state.anuncios.map(anuncio => (
+                    anuncio.userId === AuthService.getCurrentUser().id && (
                     <tr key={anuncio.id} >
                       <td data-test="id-test"> {anuncio.id} </td>
                       <td data-test="category-test"> {anuncio.categoria} </td>
@@ -122,21 +123,17 @@ export default function ListAdComponent() {
                       <td>
                         <button className="mi-botón" data-test="detail-btn-test" onClick={() => getOne(anuncio.id)}
                                 className="btn btn-info">Ver detalles </button>
-                        {anuncio.userId === AuthService.getCurrentUser().id && (
+
                             <>
-                              <button className="mi-botón" data-test="modify-btn-test" onClick={() => editAd(anuncio.id)}
-                                      className="btn btn-info">Modificar
-                              </button>
                               <button className="mi-botón" data-test="delete-btn-test" onClick={() => deleteAd(anuncio.id)}
                                       className="btn btn-danger">Borrar
-                              </button>
-                            </>
-                        )}
+                              </button></>
+
 
                       </td>
                     </tr>
                 ))
-              }
+              )}
               </tbody>
             </table>
           </div>

@@ -5,6 +5,10 @@ import AuthService from "../../services/auth.service";
 import EventBus from "../../common/EventBus";
 import VecinoService from "../../services/VecinoService";
 
+function toLocaleDateString(fecha){
+  const fechaFormatted = fecha ? new Date(fecha).toLocaleString() : '';
+  return fechaFormatted;
+}
 export default function ListAdComponent() {
 
   const [count, setCount] = useState(0);
@@ -88,8 +92,9 @@ export default function ListAdComponent() {
                 <th> ID </th>
                 <th> Categoría </th>
                 <th> Contenido de la Reserva</th>
-                <th> Fecha</th>
-                <th> Usuario</th>
+                <th> Fecha Creación</th>
+                <th> Fecha Reserva</th>
+                <th> Usuario </th>
                 <th> Acciones</th>
               </tr>
               </thead>
@@ -101,15 +106,17 @@ export default function ListAdComponent() {
                       <td data-test="category-test"> {anuncio.categoria} </td>
                       <td data-test="content-test"> {anuncio.contenido}</td>
                       <td data-test="date-test"> {anuncio.fecha}</td>
+                      <td data-test="date-test"> {anuncio.fechaReserva ? toLocaleDateString(anuncio.fechaReserva) : ''}</td>
                       <td>
                         {anuncio.userId && (
                             <RenderUser userId={anuncio.userId} />
                         )}
                       </td>
                       <td>
+                        <button className="mi-botón" data-test="detail-btn-test" onClick={ () => getOne(anuncio.id)} className="btn btn-info">Ver detalles </button>
                         <button className="mi-botón" data-test="modify-btn-test" onClick={ () => editAd(anuncio.id)} className="btn btn-info">Modificar </button>
                         <button className="mi-botón" data-test="delete-btn-test" onClick={ () => deleteAd(anuncio.id)} className="btn btn-danger">Borrar </button>
-                        <button className="mi-botón" data-test="detail-btn-test" onClick={ () => getOne(anuncio.id)} className="btn btn-info">Ver detalles </button>
+
                       </td>
                     </tr>
                 ))
