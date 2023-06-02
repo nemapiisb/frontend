@@ -9,6 +9,7 @@ const CreateAdComponent = ({ history, match }) => {
     const [contenido, setContenido] = useState('');
     const [fecha, setFecha] = useState('');
     const [categoria, setCategoria] = useState('ANUNCIO');
+    const [fechaReserva, setFechaReserva] = useState('');
     const [userId, setUserId] = useState('');
     const [currentUser, setCurrentUser] = useState(null);
     const [showModeratorBoard, setShowModeratorBoard] = useState(false);
@@ -24,6 +25,7 @@ const CreateAdComponent = ({ history, match }) => {
                 setContenido(anuncio.contenido);
                 setFecha(anuncio.fecha);
                 setUserId(anuncio.userId);
+                setFechaReserva(anuncio.fechaReserva);
                 //setCategoria(anuncio.categoria);
             });
         }
@@ -43,7 +45,7 @@ const CreateAdComponent = ({ history, match }) => {
 
     const saveOrUpdateAd = (e) => {
         e.preventDefault();
-        let anuncio = { contenido: contenido, fecha: fecha, categoria: categoria, userId: userId }; // También incluye la categoría en el objeto
+        let anuncio = { contenido: contenido, fecha: fecha, categoria: categoria, userId: userId, fechaReserva: fechaReserva  }; // También incluye la categoría en el objeto
         console.log('anuncio => ' + JSON.stringify(anuncio));
 
         if (id === '_add') {
@@ -74,6 +76,11 @@ const CreateAdComponent = ({ history, match }) => {
     const changeFechaHandler = (event) => {
         setFecha(event.target.value);
     }
+    const changeFechaReservaHandler = (event) => {
+        const { value } = event.target;
+        setFechaReserva(value);
+        console.log(value);
+    };
 
     /*const changeCategoriaHandler = (event) => {
         setCategoria(event.target.value);
@@ -108,15 +115,23 @@ const CreateAdComponent = ({ history, match }) => {
                         <div className="card-body">
                             <form>
                                 <div className="form-group">
-                                    <label> Contenido: </label>
+                                    <label> Título: </label>
                                     <input placeholder="Contenido" name="contenido" className="form-control" data-test="content-test"
                                            value={contenido} onChange={changeContenidoHandler} />
                                 </div>
                                 <div className="form-group">
-                                    <label> Fecha: </label>
-                                    <input placeholder="fecha" name="fecha" className="form-control" data-test="date-test"
-                                           value={fecha} onChange={changeFechaHandler} />
+                                    <label> Contenido: </label>
+                                    <textarea
+                                        placeholder="Contenido del comunicado"
+                                        name="fechaReserva"
+                                        className="form-control"
+                                        data-test="content-test"
+                                        value={fechaReserva}
+                                        onChange={changeFechaReservaHandler}
+                                        style={{ height: '150px' }} // Ajusta el tamaño de altura según tus necesidades
+                                    />
                                 </div>
+
                                 <div className="form-group" data-test="category-test">
                                     <label> Categoría: {categoria}</label>
                                 </div>

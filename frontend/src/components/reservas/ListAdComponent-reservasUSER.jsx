@@ -106,35 +106,31 @@ export default function ListAdComponent() {
               </tr>
               </thead>
               <tbody>
-              {
-                state.anuncios.map(anuncio => (
-                    anuncio.userId === AuthService.getCurrentUser().id && (
-                    <tr key={anuncio.id} >
-                      <td data-test="id-test"> {anuncio.id} </td>
-                      <td data-test="category-test"> {anuncio.categoria} </td>
-                      <td data-test="content-test"> {anuncio.contenido}</td>
-                      <td data-test="date-test"> {anuncio.fecha}</td>
-                      <td data-test="date-test"> {anuncio.fechaReserva ? toLocaleDateString(anuncio.fechaReserva) : ''}</td>
-                      <td>
-                        {anuncio.userId && (
-                            <RenderUser userId={anuncio.userId} />
-                        )}
-                      </td>
-                      <td>
-                        <button className="mi-botón" data-test="detail-btn-test" onClick={() => getOne(anuncio.id)}
-                                className="btn btn-info">Ver detalles </button>
+              {state.anuncios.map(anuncio => (
+                  <tr key={anuncio.id}>
+                    <td data-test="id-test"> {anuncio.id} </td>
+                    <td data-test="category-test"> {anuncio.categoria} </td>
+                    <td data-test="content-test"> {anuncio.contenido}</td>
+                    <td data-test="date-test"> {anuncio.fecha}</td>
+                    <td data-test="date-test"> {anuncio.fechaReserva ? toLocaleDateString(anuncio.fechaReserva) : ''}</td>
+                    <td>
+                      {anuncio.userId && (
+                          <RenderUser userId={anuncio.userId} />
+                      )}
+                    </td>
+                    <td>
+                      <button className="mi-botón" data-test="detail-btn-test" onClick={() => getOne(anuncio.id)} className="btn btn-info">Ver detalles </button>
 
-                            <>
-                              <button className="mi-botón" data-test="delete-btn-test" onClick={() => deleteAd(anuncio.id)}
-                                      className="btn btn-danger">Borrar
-                              </button></>
-
-
-                      </td>
-                    </tr>
-                ))
-              )}
+                      {anuncio.userId === AuthService.getCurrentUser().id && (
+                          <>
+                            <button className="mi-botón" data-test="delete-btn-test" onClick={() => deleteAd(anuncio.id)} className="btn btn-danger">Borrar</button>
+                          </>
+                      )}
+                    </td>
+                  </tr>
+              ))}
               </tbody>
+
             </table>
           </div>
         </div>

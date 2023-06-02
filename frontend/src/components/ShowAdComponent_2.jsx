@@ -4,11 +4,6 @@ import AuthService from "../services/auth.service";
 import EventBus from "../common/EventBus";
 import {useParams} from "react-router-dom";
 
-function toLocaleDateString(fecha){
-    const fechaFormatted = fecha ? new Date(fecha).toLocaleString() : '';
-    return fechaFormatted;
-}
-
 const ShowAdComponent = (props) => {
     const [anuncio, setAnuncio] = useState({});
     const [currentUser, setCurrentUser] = useState(null);
@@ -48,20 +43,20 @@ const ShowAdComponent = (props) => {
                 <h3 className="text-center" data-test="detail-h3-test"> Ver detalles del Anuncio</h3>
                 <div className="card-body">
                     <div className="row">
-                        <label>Zona Reservada: </label>
+                        <label> Título: </label>
                     </div>
                     <div><p data-test="content-test">{anuncio.contenido}</p></div>
-                    <div className="row">
-                        <label>Fecha de Reserva: </label>
-                    </div>
-                    <div><p data-test="content-test">{toLocaleDateString(anuncio.fechaReserva)}</p></div>
 
                     <div className="row">
-                        <label> Fecha del Anuncio:<br /> </label>
+                        <label> Contenido: </label>
+                    </div>
+                    <div><p data-test="content-test">{anuncio.fechaReserva}</p></div>
+                    <div className="row">
+                        <label> Fecha:<br /> </label>
                     </div>
                     <div> <p data-test="date-test"> {anuncio.fecha}</p></div>
                     <div className="row">
-                        <label> Categoría del Anuncio:<br /> </label>
+                        <label> Categoría:<br /> </label>
                     </div>
                     <div> <p data-test="category-test"> {anuncio.categoria}</p></div>
                 </div>

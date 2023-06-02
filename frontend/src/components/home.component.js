@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 
 import UserService from "../services/user.service";
+import imageSrc from "../imagenes/nema.png";
+import logoSrc from "../imagenes/nmlogo.jpg";
 
 export default class Home extends Component {
   constructor(props) {
@@ -31,12 +33,11 @@ export default class Home extends Component {
 
   render() {
     return (
-      <div className="container">
-        <header className="jumbotron" data-test="home-header-test">
-            <h1>Bienvenidos a Neighbors Manager [NEMA]</h1>
-        </header>
-        <p>En esta pagina estaria interesante informar de la utilizacion de la web y de que comunidad de vecinos pertenece</p>
-      </div>
+        <div className="container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+          <img src={imageSrc} alt="Imagen" style={{ width: '100%', height: 'auto' }} />
+          <img src={logoSrc} alt="Logo" style={{ width: '20%', height: 'auto' }} />
+        </div>
+
     );
   }
 }

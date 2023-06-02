@@ -108,7 +108,7 @@ export default function ListUserComponent(){
                       <td data-test="id-test">{usuario.id}</td>
                       <td data-test="username-test">{usuario.username}</td>
                       <td data-test="email-test">{usuario.email}</td>
-                      <td data-test="role-test">{usuario.roles[0]?.name ?? 'N/A'}<br/>{usuario.roles[1]?.name ?? 'N/A'}<br/>{usuario.roles[2]?.name ?? 'N/A'}</td>
+                      <td data-test="role-test">{usuario.roles[0].name}</td>
                       <td>
                         <button className="mi-botón" data-test="modify-btn-test" onClick={() => editUs(usuario.id)} className="btn btn-info">Modificar </button>
                         <button className="mi-botón" data-test="delete-btn-test" onClick={() => deleteUs(usuario.id)} className="btn btn-danger">Borrar </button>

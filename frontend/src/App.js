@@ -19,6 +19,7 @@ import EventBus from "./common/EventBus";
 import ListAdComponent from "./components/ListAdComponent";
 import CreateAdComponent from "./components/CreateAdComponent";
 import ShowAdComponent from "./components/ShowAdComponent";
+import ShowAdComponent_2 from "./components/ShowAdComponent_2";
 import ListAdComponentUSER from "./components/ListAdComponentUSER";
 import CreateAdComponentUSER from "./components/CreateAdComponentUSER";
 import ListUserComponent from "./components/CRUDusuarios/ListUserComponent";
@@ -296,6 +297,7 @@ class App extends Component {
                         <Route path="/add-adUSER/:id" element={<CreateAdComponentUSER />} />
                         <Route path="/edit-ad/:id" element={<CreateAdComponent />} />
                         <Route path="/show-ad/:id" element={<ShowAdComponent />} />
+                        <Route path="/show-ad_2/:id" element={<ShowAdComponent_2 />} />
                     </Routes>
                 </div>
 
